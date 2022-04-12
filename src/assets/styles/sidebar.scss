@@ -1,0 +1,22 @@
+#app {
+    .sidebar-container {
+        -webkit-transition: width .28s;
+        transition: width .28s;
+        width: 200px !important;
+        background-color: $base-menu-background;
+        height: 100%;
+        position: fixed;
+        font-size: 0;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1001;
+        overflow: hidden;
+        -webkit-box-shadow: 2px 0 6px rgb(0 21 41 / 35%);
+        box-shadow: 2px 0 6px rgb(0 21 41 / 35%);
+    }
+
+    .el-menu {
+        background-color: $base-menu-background;
+    }
+}

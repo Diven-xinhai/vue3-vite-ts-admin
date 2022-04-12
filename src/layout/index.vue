@@ -1,13 +1,15 @@
 <!--
  * @Date: 2022-04-11 09:54:14
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-11 17:57:08
+ * @LastEditTime: 2022-04-12 11:19:33
  * @FilePath: \vue3-vite-ts-admin\src\layout\index.vue
 -->
 <template>
   <div class="app-wrapper">
-    <Sidebar />
-    <AppMain />
+    <Sidebar class="sidebar-container" />
+    <div>
+      <AppMain />
+    </div>
   </div>
 </template>
 
