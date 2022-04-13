@@ -1,4 +1,11 @@
 #app {
+    .main-container {
+        min-height: 100%;
+        transition: margin-left .28s;
+        margin-left: $base-sidebar-width;
+        position: relative;
+    }
+
     .sidebar-container {
         -webkit-transition: width .28s;
         transition: width .28s;
@@ -14,9 +21,19 @@
         overflow: hidden;
         -webkit-box-shadow: 2px 0 6px rgb(0 21 41 / 35%);
         box-shadow: 2px 0 6px rgb(0 21 41 / 35%);
+
+        .svg-icon {
+            margin-right: 16px;
+        }
     }
 
+    // reset element-ui css
     .el-menu {
         background-color: $base-menu-background;
+        border-right: none;
+    }
+
+    .el-sub-menu__title {
+        background-color: rgb(84, 92, 100, 0) !important;
     }
 }

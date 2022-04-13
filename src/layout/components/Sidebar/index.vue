@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 17:20:13
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-12 18:01:36
+ * @LastEditTime: 2022-04-13 16:31:45
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\Sidebar\index.vue
 -->
 <template>
@@ -12,22 +12,38 @@
       class="el-menu-vertical-demo"
       default-active="2"
       text-color="#fff"
+      @select="selectPath"
       @open="handleOpen"
       @close="handleClose"
     >
-      <SidebarItem v-for="route in sidebarRouters" :item="route" />
+      <template v-for="route in sidebarRouters">
+        <SidebarItem v-for="item in route.children" :item="item" />
+      </template>
     </el-menu>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import SidebarItem from "./SidebarItem.vue";
+import { isExternal } from "@/utils/validate.ts";
+const router = useRouter();
+
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
 };
 const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
+};
+
+const selectPath = (path) => {
+  console.log(path);
+  if (isExternal(path)) {
+    window.open(path, "_blank");
+  } else {
+    router.push({ path: path });
+  }
 };
 
 const sidebarRouters = reactive([
@@ -43,19 +59,19 @@ const sidebarRouters = reactive([
         component: "project/index",
         meta: {
           title: "项目管理",
-          icon: "project",
+          icon: "404",
           noCache: true,
           link: null,
         },
         children: [
           {
             name: "project1",
-            path: "project/1",
+            path: "https://www.baidu.com/",
             hidden: false,
             component: "coordinate/index",
             meta: {
               title: "项目管理1",
-              icon: "项目管理",
+              icon: "404",
               noCache: false,
               link: null,
             },
@@ -116,7 +132,7 @@ const sidebarRouters = reactive([
         component: "coordinate/index",
         meta: {
           title: "项目协调",
-          icon: "项目协调",
+          icon: "404",
           noCache: false,
           link: null,
         },
@@ -128,7 +144,7 @@ const sidebarRouters = reactive([
             component: "coordinate/index",
             meta: {
               title: "项目协调1",
-              icon: "项目协调",
+              icon: "404",
               noCache: false,
               link: null,
             },
@@ -149,7 +165,7 @@ const sidebarRouters = reactive([
         component: "warning/index",
         meta: {
           title: "监控预警",
-          icon: "项目预警",
+          icon: "404",
           noCache: false,
           link: null,
         },
