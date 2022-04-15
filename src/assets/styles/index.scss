@@ -67,6 +67,75 @@ div:focus {
     display: block;
 }
 
+
+.flex {
+    display: flex;
+}
+
+.flex-row {
+    display: -webkit-flex;
+    /* Safari */
+    display: flex;
+}
+
+.flex-column {
+    display: -webkit-flex;
+    /* Safari */
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-main-center {
+    justify-content: center;
+}
+
+.flex-main-between {
+    /*两端对齐*/
+    justify-content: space-between;
+}
+
+.flex-main-around {
+    justify-content: space-around;
+}
+
+.flex-main-end {
+    justify-content: flex-end;
+}
+
+.flex-cross-center {
+    align-items: center;
+}
+
+.flex-cross-end {
+    align-items: flex-end;
+}
+
+.flex-cross-between {
+    align-items: space-between;
+}
+
+.flex-content-around {
+    align-content: space-around;
+}
+
+.align-end {
+    align-self: flex-end
+}
+
+.flex-wrap {
+    flex-wrap: wrap
+}
+
+.flex-grow {
+    flex-grow: 1;
+    /* default 0   1代表占据剩余空间 */
+}
+
+.flex-shrink {
+    flex-shrink: 0;
+    /* default 1   如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。 */
+}
+
 .pointer {
     cursor: pointer;
 }

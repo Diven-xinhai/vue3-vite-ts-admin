@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-11 10:00:44
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-11 11:46:38
+ * @LastEditTime: 2022-04-15 11:16:42
  * @FilePath: \vue3-vite-ts-admin\src\router\index.ts
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
@@ -18,6 +18,16 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/redirect/index.vue')
       }
     ]
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login.vue'),
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/views/register.vue'),
   },
   {
     path: '',

@@ -1,13 +1,14 @@
 /*
  * @Date: 2022-04-08 16:39:36
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-13 10:43:10
+ * @LastEditTime: 2022-04-15 10:35:31
  * @FilePath: \vue3-vite-ts-admin\vite.config.ts
  */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { join, resolve } from "path";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,6 +21,7 @@ export default defineConfig({
       inject: 'body-last',//body-last|body-first默认body-last
       customDomId: '__svg__icons__dom__', //默认__svg__icons__dom__
     }),
+    VueSetupExtend()
   ],
   server: {
     host: '0.0.0.0'
