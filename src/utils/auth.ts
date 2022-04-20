@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-15 17:32:23
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-15 17:34:07
+ * @LastEditTime: 2022-04-18 17:01:22
  * @FilePath: \vue3-vite-ts-admin\src\utils\auth.ts
  */
 import Cookies from 'js-cookie'

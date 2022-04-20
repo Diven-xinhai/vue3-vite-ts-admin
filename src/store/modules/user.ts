@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-15 17:30:16
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-15 18:42:36
+ * @LastEditTime: 2022-04-18 16:25:31
  * @FilePath: \vue3-vite-ts-admin\src\store\modules\user.ts
  */
 import { login, logout, getInfo } from '@/api/login'
@@ -36,8 +36,8 @@ const user = {
 
     actions: {
         // 登录
-        Login<T>({ commit }: any, userInfo: { username: string; password: string; code: string; uuid: string }):Promise<T> {
-            return new Promise((resolve, reject) => {
+        Login({ commit }: any, userInfo: { username: string; password: string; code: string; uuid: string }){
+            return new Promise<void>((resolve, reject) => {
                 login(userInfo).then(res => {
                     setToken(res.token)
                     commit('SET_TOKEN', res.token)

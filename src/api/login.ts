@@ -1,33 +1,29 @@
 /*
  * @Date: 2022-04-15 17:49:49
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-15 18:00:46
+ * @LastEditTime: 2022-04-18 16:06:06
  * @FilePath: \vue3-vite-ts-admin\src\api\login.ts
  */
-import request from '@/utils/request'
-// 登录方法
-export function login(data: object) {
-    return request({
-        url: '/login',
-        headers: {
-            isToken: false
-        },
-        method: 'post',
-        data: data
-    })
+import request from '@/utils/request/index'
+
+// 获取路由
+export const login = (data: object) => {
+  return request.post(
+    '/login',
+    data
+  )
 }
+
 // 获取用户详细信息
-export function getInfo() {
-    return request({
-        url: '/getInfo',
-        method: 'get'
-    })
+export const getInfo = () => {
+  return request.get(
+    '/getInfo',
+  )
 }
 
 // 退出方法
-export function logout() {
-    return request({
-        url: '/logout',
-        method: 'post'
-    })
+export const logout = () => {
+  return request.post(
+    '/logout',
+  )
 }

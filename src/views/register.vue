@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 11:46:06
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-15 10:43:23
+ * @LastEditTime: 2022-04-18 14:14:19
  * @FilePath: \vue3-vite-ts-admin\src\views\register.vue
 -->
 <template>
@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { getRouters } from "@/api/menu.js";
+import { getRouters } from "@/api/menu.ts";
 
 
 </script>
