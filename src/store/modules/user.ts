@@ -1,12 +1,17 @@
 /*
  * @Date: 2022-04-15 17:30:16
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-18 16:25:31
+ * @LastEditTime: 2022-09-29 16:27:35
  * @FilePath: \vue3-vite-ts-admin\src\store\modules\user.ts
  */
 import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-
+import { CustomSuccessData1 } from 'axios'
+interface aaa {
+    code?: string | number,
+    data?: object,
+    token?: string
+}
 const user = {
     state: {
         token: getToken(),
@@ -38,12 +43,11 @@ const user = {
         // 登录
         Login({ commit }: any, userInfo: { username: string; password: string; code: string; uuid: string }){
             return new Promise<void>((resolve, reject) => {
-                login(userInfo).then(res => {
-                    setToken(res.token)
-                    commit('SET_TOKEN', res.token)
+
+                login(userInfo).then((res) => {
+                    setToken(res.token!)
+                    // commit('SET_TOKEN', res.token)
                     resolve()
-                }).catch(error => {
-                    reject(error)
                 })
             })
         },

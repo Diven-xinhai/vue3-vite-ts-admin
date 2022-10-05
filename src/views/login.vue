@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts" name="Login">
-import { getRouters } from "@/api/menu.ts";
+import { getRouters } from "@/api/menu";
 import { ref, getCurrentInstance } from "vue";
 const { proxy } = getCurrentInstance();
 
