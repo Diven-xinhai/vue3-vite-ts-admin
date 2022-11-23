@@ -1,21 +1,40 @@
 <!--
  * @Date: 2022-04-11 11:54:16
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-11 14:50:41
+ * @LastEditTime: 2022-11-23 16:02:50
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\AppMain.vue
 -->
 <template>
   <section class="app-main">
     <router-view v-slot="{ Component, route }">
-      <transition name="fade-transform" mode="out-in">
+      <transition name="fade" mode="out-in">
         <component :is="Component" :key="route.path" />
       </transition>
     </router-view>
+
+    <!-- <router-view v-slot="{ Component, route }">
+      <transition :name="route.meta.transition || 'fade'" mode="out-in">
+        <keep-alive>
+          <suspense>
+            <template #default>
+              <component
+                :is="Component"
+                :key="route.path"
+              />
+            </template>
+            <template #fallback> Loading... </template>
+          </suspense>
+        </keep-alive>
+      </transition>
+    </router-view> -->
   </section>
 </template>
 
-<script setup>
-
+<script setup lang="ts">
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
+const route = useRoute();
+const cachedViews = computed(() => route.path);
 </script>
 
 <style lang="scss" scoped>
@@ -40,6 +59,16 @@
   .fixed-header + .app-main {
     padding-top: 84px;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
 

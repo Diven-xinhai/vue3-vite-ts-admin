@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 17:20:13
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-13 11:55:42
+ * @LastEditTime: 2022-11-23 10:50:15
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\Sidebar\SidebarItem.vue
 -->
 <template>
@@ -18,16 +18,21 @@
       <template #title>
         <Item :icon="item.meta.icon" :title="item.meta.title" />
       </template>
-      <SidebarItem v-for="child in item.children" :key="child.path" :item="child" />
+      <SidebarItem
+        v-for="child in item.children"
+        :key="child.path"
+        :item="child"
+      />
     </el-sub-menu>
   </div>
 </template>
 
 <script setup lang="ts">
 import Item from "./Item.vue";
-const props = defineProps({
-  item: Object,
-});
+import { SidebarRoutersItem } from "@/utils/types";
+const props = defineProps<{
+  item: SidebarRoutersItem;
+}>();
 </script>
 
 <style lang="scss" scoped></style>
