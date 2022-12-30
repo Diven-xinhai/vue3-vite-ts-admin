@@ -1,23 +1,34 @@
 <template>
   <div class="flex flex-main-center flex-cross-center login-wrap">
-    <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
+    <el-form
+      ref="loginRef"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+    >
       <p class="title">登录</p>
       <el-form-item label="账号" prop="username">
         <el-input v-model="loginForm.username" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model.number="loginForm.password" type="password" show-password />
+        <el-input
+          v-model.number="loginForm.password"
+          type="password"
+          show-password
+        />
       </el-form-item>
       <el-form-item style="width: 100%">
         <el-button
           type="primary"
           style="width: 100%"
           :loading="loading"
-          @click.prevent="handleLogin"
+          @click.prevent="handleLogin(loginRef)"
           >登录</el-button
         >
         <div style="width: 100%">
-          <router-link class="link-type" :to="'/register'">立即注册</router-link>
+          <router-link class="link-type" :to="'/register'">
+            立即注册
+          </router-link>
         </div>
       </el-form-item>
     </el-form>
@@ -25,11 +36,12 @@
 </template>
 
 <script setup lang="ts" name="Login">
-import { getRouters } from "@/api/menu";
-import { ref, getCurrentInstance } from "vue";
-const { proxy } = getCurrentInstance();
-
-const loginForm = ref({
+import { ref, reactive } from "vue";
+import { useRouter } from "vue-router";
+import type { FormInstance, FormRules } from "element-plus";
+const router = useRouter();
+const loginRef = ref<FormInstance>();
+const loginForm = reactive({
   username: "admin",
   password: "admin123",
   rememberMe: false,
@@ -37,19 +49,19 @@ const loginForm = ref({
   uuid: "",
 });
 
-const loginRules = {
+const loginRules = reactive<FormRules>({
   username: [{ required: true, trigger: "blur", message: "请输入您的账号" }],
   password: [{ required: true, trigger: "blur", message: "请输入您的密码" }],
   code: [{ required: true, trigger: "change", message: "请输入验证码" }],
-};
+});
 
 const loading = ref(false);
 
-const handleLogin = () => {
-  proxy.$refs.loginRef.validate((valid) => {
+const handleLogin = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
+  await formEl.validate((valid, fields) => {
     if (valid) {
-        console.log(111);
-        
+      router.push("/");
     }
   });
 };

@@ -1,32 +1,24 @@
 <!--
  * @Date: 2022-04-11 11:54:16
  * @LastEditors: YeKe
- * @LastEditTime: 2022-11-23 16:02:50
+ * @LastEditTime: 2022-12-30 16:45:20
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\AppMain.vue
 -->
 <template>
   <section class="app-main">
-    <router-view v-slot="{ Component, route }">
-      <transition name="fade" mode="out-in">
-        <component :is="Component" :key="route.path" />
-      </transition>
-    </router-view>
+    <RouterView v-slot="{ Component, route }">
+      <template v-if="Component">
+        <Transition name="fade" mode="out-in" appear>
+          <KeepAlive>
+            <Suspense>
+              <component :is="Component" :key="route.path"></component>
 
-    <!-- <router-view v-slot="{ Component, route }">
-      <transition :name="route.meta.transition || 'fade'" mode="out-in">
-        <keep-alive>
-          <suspense>
-            <template #default>
-              <component
-                :is="Component"
-                :key="route.path"
-              />
-            </template>
-            <template #fallback> Loading... </template>
-          </suspense>
-        </keep-alive>
-      </transition>
-    </router-view> -->
+              <template #fallback> 正在加载... </template>
+            </Suspense>
+          </KeepAlive>
+        </Transition>
+      </template>
+    </RouterView>
   </section>
 </template>
 

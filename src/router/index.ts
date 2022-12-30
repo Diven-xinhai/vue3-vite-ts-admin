@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-11 10:00:44
  * @LastEditors: YeKe
- * @LastEditTime: 2022-11-23 17:05:21
+ * @LastEditTime: 2022-12-30 17:13:23
  * @FilePath: \vue3-vite-ts-admin\src\router\index.ts
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
@@ -35,8 +35,8 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     redirect: "/index",
     children: [
       {
-        path: "/index",
-        name: "Index",
+        path: "index",
+        // name: "Index",
         component: () => import("@/views/index.vue"),
         meta: { title: "首页", icon: "dashboard", affix: true },
       },
@@ -45,11 +45,11 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: "/drag",
     component: Layout,
-    redirect: "/drag",
+    // redirect: "/drag/index",
     children: [
       {
-        path: "/drag",
-        name: "Drag",
+        path: "index",
+        // name: "Drag",
         component: () => import("@/views/drag/index.vue"),
         meta: { title: "拖拽", icon: "dashboard", affix: true },
       },

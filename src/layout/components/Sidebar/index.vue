@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 17:20:13
  * @LastEditors: YeKe
- * @LastEditTime: 2022-11-23 18:35:50
+ * @LastEditTime: 2022-12-30 16:31:27
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\Sidebar\index.vue
 -->
 <template>
@@ -24,19 +24,17 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import SidebarItem from "./SidebarItem.vue";
-import { SidebarRoutersItem } from "@/utils/types";
 import { isExternal } from "@/utils/validate";
-import {permissionRouters} from "@/assets/json/routers.json";
+import { permissionRouters } from "@/assets/json/routers.json";
 const router = useRouter();
 
 const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath);
+  // console.log(key, keyPath);
 };
 const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath);
+  // console.log(key, keyPath);
 };
 
 const selectPath = (path: string) => {

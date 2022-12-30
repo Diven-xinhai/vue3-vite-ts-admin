@@ -7,7 +7,7 @@
       "children": [
         {
           "name": "Index",
-          "path": "index",
+          "path": "/index",
           "hidden": false,
           "component": "/index",
           "meta": {
@@ -20,13 +20,13 @@
       ]
     },
     {
-      "path": "/drag",
+      "path": "/",
       "hidden": false,
       "component": "Layout",
       "children": [
         {
           "name": "Drag",
-          "path": "drag",
+          "path": "/drag/index",
           "hidden": false,
           "component": "/drag/index",
           "meta": {
