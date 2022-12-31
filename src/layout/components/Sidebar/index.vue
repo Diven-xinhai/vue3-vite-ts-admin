@@ -27,7 +27,7 @@
 import { reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import SidebarItem from "./SidebarItem.vue";
-import { isExternal } from "@/utils/validate.ts";
+import { isExternal } from "@/utils/validate";
 const router = useRouter();
 
 const handleOpen = (key: string, keyPath: string[]) => {
@@ -37,7 +37,7 @@ const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
 };
 
-const selectPath = (path) => {
+const selectPath = (path:any) => {
   console.log(path);
   if (isExternal(path)) {
     window.open(path, "_blank");

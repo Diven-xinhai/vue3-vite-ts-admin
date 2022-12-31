@@ -18,16 +18,30 @@
       <template #title>
         <Item :icon="item.meta.icon" :title="item.meta.title" />
       </template>
-      <SidebarItem v-for="child in item.children" :key="child.path" :item="child" />
+      <SidebarItem
+        v-for="child in item.children"
+        :key="child.path"
+        :item="child"
+      />
     </el-sub-menu>
   </div>
 </template>
 
 <script setup lang="ts">
+import { defineComponent, PropType } from "vue";
+import { RouteRecordRaw } from "vue-router";
 import Item from "./Item.vue";
-const props = defineProps({
-  item: Object,
-});
+interface treeListInterface {
+  name: string;
+  hidden: any;
+  path: any;
+  meta: any;
+  component: string;
+  children?: treeListInterface[];
+}
+defineProps<{
+  item: treeListInterface;
+}>();
 </script>
 
 <style lang="scss" scoped></style>
