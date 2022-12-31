@@ -1,0 +1,42 @@
+{
+  "permissionRouters": [
+    {
+      "path": "/",
+      "hidden": false,
+      "component": "Layout",
+      "children": [
+        {
+          "name": "Index",
+          "path": "/index",
+          "hidden": false,
+          "component": "/index",
+          "meta": {
+            "title": "首页",
+            "icon": "404",
+            "noCache": false,
+            "link": null
+          }
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "hidden": false,
+      "component": "Layout",
+      "children": [
+        {
+          "name": "Drag",
+          "path": "/drag/index",
+          "hidden": false,
+          "component": "/drag/index",
+          "meta": {
+            "title": "拖拽",
+            "icon": "404",
+            "noCache": false,
+            "link": null
+          }
+        }
+      ]
+    }
+  ]
+}

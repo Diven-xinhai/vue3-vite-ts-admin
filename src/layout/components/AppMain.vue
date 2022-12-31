@@ -1,21 +1,32 @@
 <!--
  * @Date: 2022-04-11 11:54:16
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-11 14:50:41
+ * @LastEditTime: 2022-12-30 16:45:20
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\AppMain.vue
 -->
 <template>
   <section class="app-main">
-    <router-view v-slot="{ Component, route }">
-      <transition name="fade-transform" mode="out-in">
-        <component :is="Component" :key="route.path" />
-      </transition>
-    </router-view>
+    <RouterView v-slot="{ Component, route }">
+      <template v-if="Component">
+        <Transition name="fade" mode="out-in" appear>
+          <KeepAlive>
+            <Suspense>
+              <component :is="Component" :key="route.path"></component>
+
+              <template #fallback> 正在加载... </template>
+            </Suspense>
+          </KeepAlive>
+        </Transition>
+      </template>
+    </RouterView>
   </section>
 </template>
 
-<script setup>
-
+<script setup lang="ts">
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
+const route = useRoute();
+const cachedViews = computed(() => route.path);
 </script>
 
 <style lang="scss" scoped>
@@ -40,6 +51,16 @@
   .fixed-header + .app-main {
     padding-top: 84px;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
 

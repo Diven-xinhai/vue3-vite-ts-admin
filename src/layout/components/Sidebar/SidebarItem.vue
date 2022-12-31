@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 17:20:13
- * @LastEditors: YeKe
- * @LastEditTime: 2022-04-13 11:55:42
+ * @LastEditors: yeke
+ * @LastEditTime: 2022-12-31 14:38:46
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\Sidebar\SidebarItem.vue
 -->
 <template>
@@ -31,16 +31,9 @@
 import { defineComponent, PropType } from "vue";
 import { RouteRecordRaw } from "vue-router";
 import Item from "./Item.vue";
-interface treeListInterface {
-  name: string;
-  hidden: any;
-  path: any;
-  meta: any;
-  component: string;
-  children?: treeListInterface[];
-}
-defineProps<{
-  item: treeListInterface;
+import { SidebarRoutersItem } from "@/utils/types";
+const props = defineProps<{
+  item: SidebarRoutersItem;
 }>();
 </script>
 

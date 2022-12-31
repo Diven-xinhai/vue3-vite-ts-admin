@@ -1,12 +1,12 @@
 <!--
  * @Date: 2022-04-11 11:46:06
  * @LastEditors: YeKe
- * @LastEditTime: 2022-09-15 16:57:30
+ * @LastEditTime: 2022-11-23 15:58:18
  * @FilePath: \vue3-vite-ts-admin\src\views\index.vue
 -->
 <template>
   <div class="title">我是首页</div>
-  <p>{{x}},{{y}}</p>
+  <!-- <p>{{x}},{{y}}</p> -->
 </template>
 
 <script setup lang="ts">
@@ -15,7 +15,7 @@ import { getRouters } from "@/api/menu";
 import useMousePosition from "@/hooks/useMousePosition";
 
 onMounted(() => {
-  getRoutersList();
+  // getRoutersList();
 });
 
 const { x, y } = useMousePosition();
