@@ -1,23 +1,28 @@
 /*
  * @Date: 2022-04-08 16:39:36
- * @LastEditors: YeKe
- * @LastEditTime: 2022-09-16 09:39:43
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-01 13:00:01
  * @FilePath: \vue3-vite-ts-admin\src\main.ts
  */
-import { createApp } from 'vue'
-import router from "./router/index"
-import App from './App.vue'
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import router from "./router/index";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+import App from "./App.vue";
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
 // import '@/assets/styles/index.scss' // global css
 // svg图标
-import 'virtual:svg-icons-register'
-import SvgIcon from '@/components/SvgIcon/index.vue'
+import "virtual:svg-icons-register";
+import SvgIcon from "@/components/SvgIcon/index.vue";
 
-const app = createApp(App)
+import "./permission";
 
-app.component('svg-icon', SvgIcon)
-app.use(ElementPlus)
-app.use(router)
-app.mount('#app')
-console.log(app.config);
+const app = createApp(App);
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
+app.component("svg-icon", SvgIcon);
+app.use(ElementPlus);
+app.use(router);
+app.use(pinia);
+app.mount("#app");

@@ -1,11 +1,11 @@
 <!--
  * @Date: 2022-04-11 11:54:16
- * @LastEditors: YeKe
- * @LastEditTime: 2022-04-13 14:40:39
+ * @LastEditors: yeke
+ * @LastEditTime: 2022-12-31 15:32:56
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\Sidebar\item.vue
 -->
 <template>
-  <svg-icon :name="icon"></svg-icon>
+  <svg-icon className="icon" :name="icon"></svg-icon>
   <span>{{ title }}</span>
 </template>
 
@@ -15,3 +15,10 @@ const props = defineProps<{
   title: string;
 }>();
 </script>
+
+<style lang="scss" scoped>
+.icon {
+  width: 20px;
+  height: 20px;
+}
+</style>

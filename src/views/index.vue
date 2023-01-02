@@ -1,19 +1,19 @@
 <!--
  * @Date: 2022-04-11 11:46:06
- * @LastEditors: YeKe
- * @LastEditTime: 2022-11-23 15:58:18
+ * @LastEditors: yeke
+ * @LastEditTime: 2022-12-31 21:06:36
  * @FilePath: \vue3-vite-ts-admin\src\views\index.vue
 -->
 <template>
-  <div class="title">我是首页</div>
-  <!-- <p>{{x}},{{y}}</p> -->
+  <div class="title">
+    我是首页
+  </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { getRouters } from "@/api/menu";
 import useMousePosition from "@/hooks/useMousePosition";
-
 onMounted(() => {
   // getRoutersList();
 });

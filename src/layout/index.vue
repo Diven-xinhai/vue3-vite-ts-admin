@@ -1,14 +1,15 @@
 <!--
  * @Date: 2022-04-11 09:54:14
- * @LastEditors: YeKe
- * @LastEditTime: 2022-04-13 16:40:01
+ * @LastEditors: yeke
+ * @LastEditTime: 2022-12-31 14:53:20
  * @FilePath: \vue3-vite-ts-admin\src\layout\index.vue
 -->
 <template>
   <div class="app-wrapper">
-    <Sidebar class="sidebar-container" />
+    <sidebar class="sidebar-container" />
     <div class="main-container">
-      <AppMain />
+      <navbar></navbar>
+      <app-main />
     </div>
   </div>
 </template>
@@ -16,6 +17,7 @@
 <script setup lang="ts">
 import { AppMain } from "./components";
 import Sidebar from "./components/Sidebar/index.vue";
+import Navbar from "./components/Navbar.vue";
 const envTitle = import.meta.env;
 console.log(envTitle);
 </script>

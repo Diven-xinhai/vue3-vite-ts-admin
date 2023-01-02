@@ -2,39 +2,64 @@
   "permissionRouters": [
     {
       "path": "/",
-      "hidden": false,
       "component": "Layout",
+      "redirect": "/index",
+      "meta": {
+        "hidden": false
+      },
       "children": [
         {
           "name": "Index",
-          "path": "/index",
-          "hidden": false,
-          "component": "/index",
+          "path": "index",
+
+          "component": "index",
           "meta": {
             "title": "首页",
-            "icon": "404",
+            "icon": "index",
             "noCache": false,
-            "link": null
+            "link": null,
+            "hidden": false
           }
-        }
-      ]
-    },
-    {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
+        },
         {
           "name": "Drag",
-          "path": "/drag/index",
-          "hidden": false,
-          "component": "/drag/index",
+          "path": "drag",
+          "component": "drag/index",
+          "redirect": "/drag/test1",
           "meta": {
             "title": "拖拽",
-            "icon": "404",
+            "icon": "drag",
             "noCache": false,
-            "link": null
-          }
+            "link": null,
+            "hidden": false
+          },
+          "children": [
+            {
+              "name": "Test1",
+              "path": "test1",
+
+              "component": "drag/test1/index",
+              "meta": {
+                "title": "test1",
+                "icon": "drag",
+                "noCache": false,
+                "link": null,
+                "hidden": false
+              }
+            },
+            {
+              "name": "Test2",
+              "path": "test2",
+              "component": "drag/test2/index",
+              "meta": {
+                "title": "test2",
+                "icon": "drag",
+                "noCache": false,
+                "link": null,
+                "hidden": false
+              }
+            }
+          ]
         }
       ]
     }

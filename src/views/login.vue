@@ -1,3 +1,10 @@
+<!--
+ * @Description: 登录
+ * @Author: yeke
+ * @Date: 2022-12-31 14:38:16
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-01 21:13:50
+-->
 <template>
   <div class="flex flex-main-center flex-cross-center login-wrap">
     <el-form
@@ -23,8 +30,9 @@
           style="width: 100%"
           :loading="loading"
           @click.prevent="handleLogin(loginRef)"
-          >登录</el-button
         >
+          登录
+        </el-button>
         <div style="width: 100%">
           <router-link class="link-type" :to="'/register'">
             立即注册
@@ -38,8 +46,15 @@
 <script setup lang="ts" name="Login">
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/store/user";
 import type { FormInstance, FormRules } from "element-plus";
+import { ElMessage } from "element-plus";
+
+import { login } from "@/api/login";
+
+import axios from "axios";
 const router = useRouter();
+const store = useUserStore();
 const loginRef = ref<FormInstance>();
 const loginForm = reactive({
   username: "admin",
@@ -61,7 +76,19 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      router.push("/");
+      const userInfo = {
+        userName: loginForm.username,
+      };
+      login(userInfo).then((res: any) => {
+        if (res.code == 200) {
+          ElMessage({
+            message: res.msg,
+            type: "success",
+          });
+          store.setUserInfo(userInfo);
+          router.push("/");
+        }
+      });
     }
   });
 };

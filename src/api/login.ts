@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-15 17:49:49
- * @LastEditors: YeKe
- * @LastEditTime: 2022-04-18 16:06:06
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-01 21:05:51
  * @FilePath: \vue3-vite-ts-admin\src\api\login.ts
  */
 import request from '@/utils/request/index'
@@ -9,7 +9,7 @@ import request from '@/utils/request/index'
 // 获取路由
 export const login = (data: object) => {
   return request.post(
-    '/login',
+    '/api/login',
     data
   )
 }

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 17:20:13
  * @LastEditors: yeke
- * @LastEditTime: 2022-12-31 14:38:46
+ * @LastEditTime: 2023-01-02 20:58:55
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\Sidebar\SidebarItem.vue
 -->
 <template>
@@ -28,8 +28,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, PropType } from "vue";
-import { RouteRecordRaw } from "vue-router";
 import Item from "./Item.vue";
 import { SidebarRoutersItem } from "@/utils/types";
 const props = defineProps<{
