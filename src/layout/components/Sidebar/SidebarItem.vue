@@ -1,11 +1,11 @@
 <!--
  * @Date: 2022-04-11 17:20:13
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-02 20:58:55
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-04 17:31:33
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\Sidebar\SidebarItem.vue
 -->
 <template>
-  <div v-if="!item.hidden">
+  <template v-if="!item.hidden && item.meta">
     <!-- 无子级 -->
     <template v-if="!item.children">
       <el-menu-item :index="item.path">
@@ -24,14 +24,14 @@
         :item="child"
       />
     </el-sub-menu>
-  </div>
+  </template>
 </template>
 
 <script setup lang="ts">
 import Item from "./Item.vue";
-import { SidebarRoutersItem } from "@/utils/types";
+import { RouteRecordRaw } from "vue-router";
 const props = defineProps<{
-  item: SidebarRoutersItem;
+  item: RouteRecordRaw;
 }>();
 </script>
 

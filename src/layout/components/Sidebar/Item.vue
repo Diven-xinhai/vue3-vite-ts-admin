@@ -1,8 +1,8 @@
 <!--
  * @Date: 2022-04-11 11:54:16
- * @LastEditors: yeke
- * @LastEditTime: 2022-12-31 15:32:56
- * @FilePath: \vue3-vite-ts-admin\src\layout\components\Sidebar\item.vue
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-04 17:37:48
+ * @FilePath: \vue3-vite-ts-admin\src\layout\components\Sidebar\Item.vue
 -->
 <template>
   <svg-icon className="icon" :name="icon"></svg-icon>

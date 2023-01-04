@@ -2,8 +2,8 @@
  * @Description: 登录
  * @Author: yeke
  * @Date: 2022-12-31 14:38:16
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-01 21:13:50
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-04 15:39:54
 -->
 <template>
   <div class="flex flex-main-center flex-cross-center login-wrap">
@@ -49,10 +49,8 @@ import { useRouter } from "vue-router";
 import { useUserStore } from "@/store/user";
 import type { FormInstance, FormRules } from "element-plus";
 import { ElMessage } from "element-plus";
-
 import { login } from "@/api/login";
 
-import axios from "axios";
 const router = useRouter();
 const store = useUserStore();
 const loginRef = ref<FormInstance>();
@@ -85,6 +83,7 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
             message: res.msg,
             type: "success",
           });
+          store.setToken('123123');
           store.setUserInfo(userInfo);
           router.push("/");
         }
