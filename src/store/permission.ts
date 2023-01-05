@@ -3,13 +3,12 @@
  * @Author: yeke
  * @Date: 2022-12-31 16:13:58
  * @LastEditors: yeke
- * @LastEditTime: 2023-01-04 23:21:03
+ * @LastEditTime: 2023-01-05 21:22:30
  */
 import { defineStore } from "pinia";
 import router, { constantRoutes } from "@/router/index";
 import { RouteRecordRaw } from "vue-router";
 import { getRouters } from "@/api/menu";
-import { useUserStore } from "@/store/user";
 import Layout from "@/layout/index.vue";
 
 // 匹配views里面所有的.vue文件
@@ -29,26 +28,25 @@ export const usePermissionStore = defineStore("permission", {
       return new Promise((resolve, reject) => {
         // 后端返回的路由是根据角色动态生成的
         // 所以这里不需要做路由权限处理
-        getRouters({ username: useUserStore().userInfo?.userName }).then(
-          (res) => {
-            const defaultData = JSON.parse(JSON.stringify(res.data));
-            const sidebarData = JSON.parse(JSON.stringify(res.data));
-            const asyncData = JSON.parse(JSON.stringify(res.data));
+        getRouters().then((res) => {
+          const defaultData = JSON.parse(JSON.stringify(res.data));
+          const sidebarData = JSON.parse(JSON.stringify(res.data));
+          const asyncData = JSON.parse(JSON.stringify(res.data));
 
-            // 侧边栏路由
-            const sidebarRouters = filterPath(sidebarData);
-            // 异步路由
-            const asyncRouters = filterAsyncRouter(asyncData);
+          // 侧边栏路由
+          const sidebarRouters = filterPath(sidebarData);
+          // 异步路由
+          const asyncRouters = filterAsyncRouter(asyncData);
 
-            this.setSidebarRouters(
-              filterRouterName(constantRoutes).concat(sidebarRouters)
-            );
-            asyncRouters.forEach((route) => {
-              router.addRoute(route);
-            });
-            resolve(asyncRouters);
-          }
-        );
+          this.setSidebarRouters(
+            filterRouterName(constantRoutes).concat(sidebarRouters)
+          );
+          asyncRouters.forEach((route) => {
+            router.addRoute(route);
+          });
+
+          resolve(asyncRouters);
+        });
       });
     },
     // delStore() {

@@ -2,8 +2,8 @@
  * @Description: 动态路由mock数据
  * @Author: yeke
  * @Date: 2023-01-01 20:26:22
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-05 15:38:17
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-05 21:23:14
  */
 import { responseType } from "./types";
 export default [
@@ -11,11 +11,10 @@ export default [
     type: "get",
     url: "/api/getRouters",
     response: (data: any): responseType => {
-      const { username } = data.body;
       return {
         code: 200,
         msg: "获取成功",
-        data: username === "admin" ? adminRouter : commonRouter,
+        data: adminRouter,
       };
     },
   },

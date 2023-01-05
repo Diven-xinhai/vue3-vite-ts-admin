@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 11:54:16
- * @LastEditors: YeKe
- * @LastEditTime: 2022-12-30 16:45:20
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-05 22:25:08
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\AppMain.vue
 -->
 <template>
@@ -32,8 +32,9 @@ const cachedViews = computed(() => route.path);
 <style lang="scss" scoped>
 .app-main {
   /* 50= navbar  50  */
-  min-height: calc(100vh - 50px);
+  // min-height: calc(100vh - 50px);
   width: 100%;
+  height: 100%;
   position: relative;
   overflow: hidden;
 }
