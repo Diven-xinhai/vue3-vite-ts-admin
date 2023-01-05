@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-11 10:00:44
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-04 15:55:12
+ * @LastEditTime: 2023-01-05 10:56:13
  * @FilePath: \vue3-vite-ts-admin\src\router\index.ts
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";

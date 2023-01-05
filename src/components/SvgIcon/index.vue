@@ -4,9 +4,8 @@
   </svg>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, computed } from "vue";
-
 export default defineComponent({
   name: "SvgIcon",
   props: {
@@ -20,7 +19,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: "",
+      default: '',
     },
     className: {
       type: String,
@@ -28,6 +27,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+
     const symbolId = computed(() => `#${props.prefix}-${props.name}`);
     const svgClass = computed(() => {
       if (props.className) {

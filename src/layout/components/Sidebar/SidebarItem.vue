@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 17:20:13
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-04 17:31:33
+ * @LastEditTime: 2023-01-05 11:45:39
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\Sidebar\SidebarItem.vue
 -->
 <template>
@@ -18,16 +18,24 @@
       <template #title>
         <Item :icon="item.meta.icon" :title="item.meta.title" />
       </template>
-      <SidebarItem
-        v-for="child in item.children"
-        :key="child.path"
-        :item="child"
-      />
+      <el-menu-item-group>
+        <SidebarItem
+          v-for="child in item.children"
+          :key="child.path"
+          :item="child"
+        />
+      </el-menu-item-group>
     </el-sub-menu>
   </template>
 </template>
 
 <script setup lang="ts">
+import {
+  Document,
+  Menu as IconMenu,
+  Location,
+  Setting,
+} from "@element-plus/icons-vue";
 import Item from "./Item.vue";
 import { RouteRecordRaw } from "vue-router";
 const props = defineProps<{

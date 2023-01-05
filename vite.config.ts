@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-08 16:39:36
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-01 20:50:07
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-05 17:33:41
  * @FilePath: \vue3-vite-ts-admin\vite.config.ts
  */
 import { UserConfigExport, ConfigEnv } from "vite";
@@ -41,11 +41,27 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
       },
     },
     css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: '@import "@/assets/styles/index.scss";',
-        },
-      },
+      // postcss: {
+      //   plugins: [
+      //     {
+      //       postcssPlugin: "internal:charset-removal",
+      //       AtRule: {
+      //         // 去除elementPlus内部charset警告
+      //         charset: (atRule) => {
+      //           if (atRule.name === "charset") {
+      //             atRule.remove();
+      //           }
+      //         },
+      //       },
+      //     },
+      //   ],
+      // },
+      // preprocessorOptions: {
+      //   scss: {
+      //     charset: false,
+      //     additionalData: '@import "@/assets/styles/index.scss";',
+      //   },
+      // },
     },
   };
 };

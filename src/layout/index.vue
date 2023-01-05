@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 09:54:14
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-04 16:20:33
+ * @LastEditTime: 2023-01-05 17:52:47
  * @FilePath: \vue3-vite-ts-admin\src\layout\index.vue
 -->
 <template>
@@ -9,6 +9,7 @@
     <sidebar class="sidebar-container" />
     <div class="main-container">
       <navbar></navbar>
+      <tags-view></tags-view>
       <app-main />
     </div>
   </div>
@@ -18,6 +19,7 @@
 import { AppMain } from "./components";
 import Sidebar from "./components/Sidebar/index.vue";
 import Navbar from "./components/Navbar.vue";
+import TagsView from "./components/TagsView/index.vue";
 const envTitle = import.meta.env;
 console.log(envTitle);
 </script>

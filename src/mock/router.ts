@@ -2,8 +2,8 @@
  * @Description: 动态路由mock数据
  * @Author: yeke
  * @Date: 2023-01-01 20:26:22
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-04 23:26:13
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-05 15:38:17
  */
 import { responseType } from "./types";
 export default [
@@ -22,6 +22,33 @@ export default [
 ];
 
 const adminRouter = [
+  {
+    name: "System",
+    path: "/system",
+    component: "Layout",
+    redirect: "/system/user",
+    hidden: false,
+    meta: {
+      title: "系统管理",
+      icon: "system",
+      noCache: false,
+      link: null,
+    },
+    children: [
+      {
+        name: "User",
+        path: "user",
+        component: "system/user/index",
+        hidden: false,
+        meta: {
+          title: "用户管理",
+          icon: "user",
+          noCache: false,
+          link: null,
+        },
+      },
+    ],
+  },
   {
     name: "Drag",
     path: "/drag",

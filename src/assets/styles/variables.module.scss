@@ -1,8 +1,12 @@
 $red: #c03639;
 
 // 默认主题色
-$theme-color: #46A0FC;
+$theme-color: #46a0fc;
 // 默认菜单主题风格
 $base-menu-background: #fff;
 
 $base-sidebar-width: 200px;
+
+:export {
+  themeColor: $theme-color;
+}

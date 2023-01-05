@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 11:46:06
- * @LastEditors: yeke
- * @LastEditTime: 2022-12-31 21:06:36
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-05 16:11:52
  * @FilePath: \vue3-vite-ts-admin\src\views\index.vue
 -->
 <template>
@@ -22,14 +22,12 @@ const { x, y } = useMousePosition();
 const getRoutersList = () => {
   console.log(123);
 
-  getRouters().then((res) => {
-    console.log(res);
-  });
+
 };
 </script>
 
 <style lang="scss" scoped>
 .title {
-  color: $red;
+  // color: $red;
 }
 </style>
