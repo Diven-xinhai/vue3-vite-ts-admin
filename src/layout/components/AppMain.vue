@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 11:54:16
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-05 22:25:08
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-06 11:50:08
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\AppMain.vue
 -->
 <template>
@@ -9,7 +9,7 @@
     <RouterView v-slot="{ Component, route }">
       <template v-if="Component">
         <Transition name="fade" mode="out-in" appear>
-          <KeepAlive>
+          <KeepAlive :include="cachedViews">
             <Suspense>
               <component :is="Component" :key="route.path"></component>
 
@@ -25,8 +25,10 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import { useTagsViewStore } from "@/store/tagsView";
 const route = useRoute();
-const cachedViews = computed(() => route.path);
+const tagsViewStore = useTagsViewStore();
+const cachedViews = computed(() => tagsViewStore.cachedViews);
 </script>
 
 <style lang="scss" scoped>

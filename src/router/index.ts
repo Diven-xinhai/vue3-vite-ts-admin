@@ -1,10 +1,15 @@
 /*
  * @Date: 2022-04-11 10:00:44
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-05 21:12:22
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-06 17:41:46
  * @FilePath: \vue3-vite-ts-admin\src\router\index.ts
  */
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  createWebHashHistory,
+  RouteRecordRaw,
+} from "vue-router";
 import Layout from "@/layout/index.vue";
 
 /**
@@ -26,18 +31,8 @@ import Layout from "@/layout/index.vue";
  */
 
 // 2. 配置路由
+// 注意：如果路由中没有meta&&meta.title，那么标签页跟面包屑将不会增加
 export const constantRoutes: Array<RouteRecordRaw> = [
-  {
-    path: "/redirect",
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: "/redirect/:path(.*)",
-        component: () => import("@/views/redirect/index.vue"),
-      },
-    ],
-  },
   {
     path: "/login",
     name: "Login",
@@ -71,6 +66,17 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       },
     ],
   },
+
+  {
+    path: "/404",
+    hidden: true,
+    component: () => import("@/views/redirect/index.vue"),
+  },
+  // {
+  //   path: "/:pathMatch(.*)",
+  //   redirect: "/404",
+  //   hidden: true,
+  // },
 ];
 
 // export const dynamicRoutes: Array<RouteRecordRaw> = [
@@ -110,6 +116,12 @@ export const constantRoutes: Array<RouteRecordRaw> = [
 //     ],
 //   },
 // ];
+
+export const errorRouter = {
+  path: "/:pathMatch(.*)",
+  redirect: "/404",
+  hidden: true,
+};
 
 // 1.返回一个 router 实列，为函数，里面有配置项（对象） history
 const router = createRouter({

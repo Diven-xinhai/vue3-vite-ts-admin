@@ -2,11 +2,11 @@
  * @Description: 路由权限状态
  * @Author: yeke
  * @Date: 2022-12-31 16:13:58
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-05 21:22:30
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-06 17:26:49
  */
 import { defineStore } from "pinia";
-import router, { constantRoutes } from "@/router/index";
+import router, { constantRoutes, errorRouter } from "@/router/index";
 import { RouteRecordRaw } from "vue-router";
 import { getRouters } from "@/api/menu";
 import Layout from "@/layout/index.vue";
@@ -41,17 +41,13 @@ export const usePermissionStore = defineStore("permission", {
           this.setSidebarRouters(
             filterRouterName(constantRoutes).concat(sidebarRouters)
           );
-          asyncRouters.forEach((route) => {
+          [...asyncRouters, errorRouter].forEach((route) => {
             router.addRoute(route);
           });
-
           resolve(asyncRouters);
         });
       });
     },
-    // delStore() {
-    //   this.$reset();
-    // },
   },
   persist: {
     key: "my-custom-key",

@@ -2,8 +2,8 @@
  * @Description: 登录
  * @Author: yeke
  * @Date: 2022-12-31 14:38:16
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-05 21:22:39
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-06 14:06:54
 -->
 <template>
   <div class="flex flex-main-center flex-cross-center login-wrap">
@@ -15,11 +15,12 @@
     >
       <p class="title">登录</p>
       <el-form-item label="账号" prop="username">
-        <el-input v-model="loginForm.username" />
+        <el-input v-model="loginForm.username" placeholder="admin/common" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input
           v-model="loginForm.password"
+          placeholder="1234qwer"
           type="password"
           show-password
           @keyup.enter="handleLogin(loginRef)"

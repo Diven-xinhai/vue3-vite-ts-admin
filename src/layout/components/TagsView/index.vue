@@ -1,8 +1,8 @@
 <!--
  * @Description: 标签
  * @Date: 2023-01-05 15:30:57
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-05 23:01:19
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-06 15:55:46
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\TagsView\index.vue
 -->
 <template>
@@ -14,16 +14,17 @@
     >
       <span class="title">{{ item.title }}</span>
       <svg-icon
+        v-if="item.path !== '/index'"
         className="close-tags"
         name="close"
-        @click="closeTags(item, i)"
+        @click.stop="closeTags(item)"
       ></svg-icon>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { watch, computed, onMounted, getCurrentInstance } from "vue";
+import { watch, computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { AddRoute } from "@/store/types";
 import { useTagsViewStore } from "@/store/tagsView";
@@ -33,7 +34,6 @@ const tagsViewStore = useTagsViewStore();
 
 const visitedViews = computed(() => tagsViewStore.visitedViews);
 watch(route, (n, o) => {
-  console.log(n);
   addView();
 });
 
@@ -42,13 +42,16 @@ onMounted(() => {
 });
 
 const addView = () => {
+  // 如果路由里没有符合条件的就不进行添加
+  let mached = route.matched.filter((item) => item.meta && item.meta.title);
+  if (!mached.length) return;
   tagsViewStore.addViews(route);
 };
 
-const closeTags = (data: AddRoute, index: number) => {
+const closeTags = (data: AddRoute) => {
   tagsViewStore.delView(data);
-  // const lastRoute = visitedViews.value[visitedViews.value.length - 1];
-  // console.log(lastRoute);
+  const lastRoute = visitedViews.value[visitedViews.value.length - 1];
+  router.push(lastRoute.path);
 };
 
 const toPath = (data: AddRoute) => {

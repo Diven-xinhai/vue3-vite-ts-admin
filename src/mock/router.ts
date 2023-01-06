@@ -2,8 +2,8 @@
  * @Description: 动态路由mock数据
  * @Author: yeke
  * @Date: 2023-01-01 20:26:22
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-05 21:23:14
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-06 11:39:22
  */
 import { responseType } from "./types";
 export default [
@@ -42,7 +42,7 @@ const adminRouter = [
         meta: {
           title: "用户管理",
           icon: "user",
-          noCache: false,
+          noCache: true,
           link: null,
         },
       },

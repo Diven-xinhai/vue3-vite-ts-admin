@@ -1,11 +1,13 @@
 <!--
  * @Date: 2022-04-11 10:41:13
  * @LastEditors: YeKe
- * @LastEditTime: 2022-04-11 10:42:41
+ * @LastEditTime: 2023-01-06 15:58:20
  * @FilePath: \vue3-vite-ts-admin\src\views\redirect\index.vue
 -->
 <template>
-  <div></div>
+  <div>
+    <h2>404</h2>
+  </div>
 </template>
 
 <script setup>

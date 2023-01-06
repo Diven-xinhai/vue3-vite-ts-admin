@@ -2,40 +2,40 @@
  * @Description: 权限处理
  * @Author: yeke
  * @Date: 2022-12-31 19:40:21
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-05 21:44:52
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-06 17:49:26
  */
-import router from "./router/index";
+import router, { errorRouter } from "./router/index";
+import { RouteRecordRaw } from "vue-router";
 import { useUserStore } from "./store/user";
 import { usePermissionStore } from "./store/permission";
 
-const whiteList = ["/login", "/register"];
-let routeFlag = false;
-router.beforeEach((to, from, next) => {
+const whiteList = ["/login", "/register", "404"];
+
+let pageRefresh = true;
+router.beforeEach(async (to, from) => {
   const isToken = useUserStore().token;
   if (isToken) {
-    const store = useUserStore();
     // 判断是否动态加载完毕
-    if (routeFlag) {
-      next();
+    if (whiteList.includes(to.path)) {
+      return { path: "/" };
     } else {
-      if (store.userInfo) {
-        usePermissionStore()
+      if (!pageRefresh) {
+        return true;
+      } else {
+        await usePermissionStore()
           .generateRoutes()
-          .then((asyncRoutes: any) => {
-            // asyncRoutes.forEach((route: any) => {
-            //   router.addRoute(route);
-            // });
-            routeFlag = true;
-            next({ ...to, replace: true });
+          .then(() => {
+            console.log(to);
+            router.push(to.fullPath)
+            // return { ...to, replace: true };
           });
+        pageRefresh = false;
       }
     }
   } else {
-    if (whiteList.includes(to.path)) {
-      next();
-    } else {
-      next(`/login?redirect=${to.fullPath}`);
+    if (!whiteList.includes(to.path)) {
+      return `/login?redirect=${to.fullPath}`;
     }
   }
 });

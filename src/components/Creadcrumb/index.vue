@@ -2,14 +2,18 @@
  * @Description: 面包屑导航
  * @Author: yeke
  * @Date: 2022-12-31 14:44:46
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-01 20:11:07
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-06 15:12:32
 -->
 <template>
   <div class="breadcrumb">
     <el-breadcrumb :separator-icon="ArrowRight">
       <TransitionGroup name="breadcrumb">
-        <el-breadcrumb-item v-for="(item,i) in levelList" :key="i" :to="toPath(item)">
+        <el-breadcrumb-item
+          v-for="(item, i) in levelList"
+          :key="i"
+          :to="toPath(item)"
+        >
           {{ item.meta.title }}
         </el-breadcrumb-item>
       </TransitionGroup>
@@ -33,6 +37,8 @@ const levelList: Ref<RouteLocationMatched[]> = ref([]);
 
 const getBreadcrumb = () => {
   let mached = route.matched.filter((item) => item.meta && item.meta.title);
+  if (!mached.length) return;
+
   // 第一个路径如果不是首页，需要在匹配路径前面拼接一个首页
   const first = mached[0];
   if (first.path != "/index") {
