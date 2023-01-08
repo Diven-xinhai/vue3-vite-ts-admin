@@ -2,8 +2,8 @@
  * @Description: 登录
  * @Author: yeke
  * @Date: 2022-12-31 14:38:16
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-06 14:06:54
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-08 22:36:39
 -->
 <template>
   <div class="flex flex-main-center flex-cross-center login-wrap">
@@ -105,7 +105,6 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
             type: "success",
           });
           store.setToken("123123");
-          store.setUserInfo(userInfo);
           router.push("/");
         }
       });

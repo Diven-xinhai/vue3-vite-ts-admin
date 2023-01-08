@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 17:20:13
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-05 16:20:04
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-08 13:44:29
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\Sidebar\index.vue
 -->
 <template>
@@ -9,8 +9,8 @@
     <logo :isCollapse="isCollapse"></logo>
     <el-scrollbar wrap-class="scrollbar-wrap">
       <el-menu
-        active-text-color="#46A0FC"
-        default-active="2"
+        :active-text-color="variables.themeColor"
+        :default-active="activeMenu"
         text-color="#333"
         :unique-opened="true"
         :collapse="isCollapse"
@@ -27,13 +27,15 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import Logo from "@/components/Logo/index.vue";
 import SidebarItem from "./SidebarItem.vue";
 import { isExternal } from "@/utils/validate";
 import { usePermissionStore } from "@/store/permission";
 import { useAppStore } from "@/store/app";
+import variables from "@/assets/styles/variables.module.scss";
 
+const route = useRoute();
 const router = useRouter();
 const permissionStore = usePermissionStore();
 const appStore = useAppStore();
@@ -49,13 +51,17 @@ const handleClose = (key: string, keyPath: string[]) => {
 };
 
 const selectPath = (path: string) => {
-  console.log(path);
   if (isExternal(path)) {
     window.open(path, "_blank");
   } else {
     router.push({ path: path });
   }
 };
+
+const activeMenu = computed(() => {
+  const { path } = route;
+  return path;
+});
 </script>
 
 <style lang="scss">

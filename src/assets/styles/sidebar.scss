@@ -1,20 +1,18 @@
 #app {
   .main-container {
-    width: 100%;
     min-height: 100%;
     position: relative;
   }
   .sidebar-container {
-    flex-shrink: 0;
     -webkit-transition: width 0.28s;
     transition: width 0.28s;
     width: 200px;
     background-color: $base-menu-background;
-    // position: fixed;
+    position: fixed;
     // font-size: 0;
-    // top: 0;
-    // bottom: 0;
-    // left: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
     z-index: 2;
     overflow: hidden;
     -webkit-box-shadow: 2px 0 6px rgb(0 21 41 / 35%);

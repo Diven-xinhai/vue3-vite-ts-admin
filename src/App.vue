@@ -1,26 +1,19 @@
 <!--
  * @Date: 2022-04-08 16:39:36
  * @LastEditors: yeke
- * @LastEditTime: 2022-12-31 15:21:22
+ * @LastEditTime: 2023-01-08 22:13:52
  * @FilePath: \vue3-vite-ts-admin\src\App.vue
 -->
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <script setup lang="ts">
-
+import { onMounted } from "vue";
+import { useAppStore } from "@/store/app";
+import { colorChange } from "@/utils/color";
+onMounted(() => {
+  const color = useAppStore().theme.color ? useAppStore().theme.color : "";
+  colorChange(color);
+});
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  background-color: #F4F9FD;
-}
-</style>

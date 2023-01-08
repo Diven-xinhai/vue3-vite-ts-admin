@@ -2,8 +2,8 @@
  * @Description: 动态路由mock数据
  * @Author: yeke
  * @Date: 2023-01-01 20:26:22
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-06 11:39:22
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-08 18:48:35
  */
 import { responseType } from "./types";
 export default [
@@ -42,7 +42,19 @@ const adminRouter = [
         meta: {
           title: "用户管理",
           icon: "user",
-          noCache: true,
+          noCache: false,
+          link: null,
+        },
+      },
+      {
+        name: "Color",
+        path: "color",
+        component: "system/color/index",
+        hidden: false,
+        meta: {
+          title: "设置主题色",
+          icon: "color",
+          noCache: false,
           link: null,
         },
       },

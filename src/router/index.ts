@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-11 10:00:44
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-06 17:41:46
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-08 21:46:31
  * @FilePath: \vue3-vite-ts-admin\src\router\index.ts
  */
 import {
@@ -20,7 +20,7 @@ import Layout from "@/layout/index.vue";
  * name:'router-name'               // 设定路由的名字，一定要填写不然使用<keep-alive>时会出现各种问题
  * query: '{"id": 1, "name": "ry"}' // 访问路由的默认传递参数
  * roles: ['admin', 'common']       // 访问路由的角色权限
- * permissions: ['a:a:a', 'b:b:b']  // 访问路由的菜单权限
+ * permissions: ['a:a:a', 'b:b:b']  // 这个是用作操作权限（如：按钮）
  * meta : {
     noCache: true                   // 如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
     title: 'title'                  // 设置该路由在侧边栏和面包屑中展示的名字
@@ -51,6 +51,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     hidden: false,
     component: Layout,
     redirect: "/index",
+    // 动态路由主要插入到这个children里
     children: [
       {
         name: "Index",
@@ -68,15 +69,11 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   },
 
   {
-    path: "/404",
+    path: "/:pathMatch(.*)",
+    name: "404",
     hidden: true,
     component: () => import("@/views/redirect/index.vue"),
   },
-  // {
-  //   path: "/:pathMatch(.*)",
-  //   redirect: "/404",
-  //   hidden: true,
-  // },
 ];
 
 // export const dynamicRoutes: Array<RouteRecordRaw> = [
@@ -116,12 +113,6 @@ export const constantRoutes: Array<RouteRecordRaw> = [
 //     ],
 //   },
 // ];
-
-export const errorRouter = {
-  path: "/:pathMatch(.*)",
-  redirect: "/404",
-  hidden: true,
-};
 
 // 1.返回一个 router 实列，为函数，里面有配置项（对象） history
 const router = createRouter({

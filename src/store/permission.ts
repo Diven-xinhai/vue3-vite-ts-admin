@@ -2,11 +2,11 @@
  * @Description: 路由权限状态
  * @Author: yeke
  * @Date: 2022-12-31 16:13:58
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-06 17:26:49
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-06 23:37:56
  */
 import { defineStore } from "pinia";
-import router, { constantRoutes, errorRouter } from "@/router/index";
+import router, { constantRoutes } from "@/router/index";
 import { RouteRecordRaw } from "vue-router";
 import { getRouters } from "@/api/menu";
 import Layout from "@/layout/index.vue";
@@ -18,11 +18,15 @@ export const usePermissionStore = defineStore("permission", {
   state: () => {
     return {
       sidebarRouters: [] as RouteRecordRaw[],
+      asyncRouters: [] as RouteRecordRaw[],
     };
   },
   actions: {
     setSidebarRouters(sidebarRouters: RouteRecordRaw[]) {
       this.sidebarRouters = sidebarRouters;
+    },
+    setAsyncRouters(asyncRouters: RouteRecordRaw[]) {
+      this.asyncRouters = asyncRouters;
     },
     generateRoutes() {
       return new Promise((resolve, reject) => {
@@ -41,16 +45,16 @@ export const usePermissionStore = defineStore("permission", {
           this.setSidebarRouters(
             filterRouterName(constantRoutes).concat(sidebarRouters)
           );
-          [...asyncRouters, errorRouter].forEach((route) => {
+          this.setAsyncRouters(
+            filterRouterName(constantRoutes).concat(asyncRouters)
+          );
+          asyncRouters.forEach((route) => {
             router.addRoute(route);
           });
           resolve(asyncRouters);
         });
       });
     },
-  },
-  persist: {
-    key: "my-custom-key",
   },
 });
 

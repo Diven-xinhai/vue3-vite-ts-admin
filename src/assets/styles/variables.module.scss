@@ -1,7 +1,9 @@
-$red: #c03639;
+:root {
+  --theme-color: #409eff;
+}
 
 // 默认主题色
-$theme-color: #46a0fc;
+$theme-color: var(--theme-color);
 // 默认菜单主题风格
 $base-menu-background: #fff;
 

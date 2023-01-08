@@ -2,8 +2,8 @@
  * @Description: 标签状态
  * @Author: yeke
  * @Date: 2023-01-05 21:40:53
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-06 15:52:58
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-08 22:53:31
  */
 import { defineStore } from "pinia";
 import { AddRoute } from "./types";
@@ -36,13 +36,14 @@ export const useTagsViewStore = defineStore("tags-view", {
     },
     addCachedViews(view: AddRoute) {
       if (this.cachedViews.some((item) => item === view.name)) return;
-      if (!view.meta.noCache) return;
+      if (view.meta.noCache) return;
       if (typeof view.name == "string") {
         this.cachedViews.push(view.name);
       }
     },
   },
   persist: {
-    key: "my-custom-key",
+    key: "tagsView",
+    storage: sessionStorage,
   },
 });

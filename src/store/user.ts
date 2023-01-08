@@ -2,18 +2,21 @@
  * @Description: 用户信息状态
  * @Author: yeke
  * @Date: 2022-12-31 16:13:58
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-06 15:20:56
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-08 22:53:20
  */
 import { defineStore } from "pinia";
 import { useTagsViewStore } from "./tagsView";
 import { usePermissionStore } from "./permission";
+import { userInfo } from "@/api/user";
 
 export const useUserStore = defineStore("user", {
   state: () => {
     return {
       token: "",
       userInfo: null as UserInfo | null,
+      roles: [] as string[],
+      permissions: [] as string[],
     };
   },
   actions: {
@@ -22,6 +25,25 @@ export const useUserStore = defineStore("user", {
     },
     setUserInfo(userInfo: UserInfo) {
       this.userInfo = userInfo;
+    },
+    getUserInfo() {
+      return new Promise((resolve, reject) => {
+        userInfo()
+          .then((res: any) => {
+            this.userInfo = res.data.user;
+            // 判断是否有角色
+            if (res.data.roles && res.data.roles.length > 0) {
+              this.roles = res.data.roles;
+              this.permissions = res.data.permissions;
+            } else {
+              this.roles = ["ROLE_DEFAULT"];
+            }
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
     },
     logOut() {
       const tagsViewStore = useTagsViewStore();
@@ -35,7 +57,8 @@ export const useUserStore = defineStore("user", {
     },
   },
   persist: {
-    key: "my-custom-key",
+    key: "user",
+    storage: sessionStorage,
   },
 });
 

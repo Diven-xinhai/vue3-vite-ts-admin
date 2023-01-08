@@ -2,8 +2,8 @@
  * @Description: 顶部导航条
  * @Author: yeke
  * @Date: 2022-12-31 14:44:46
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-06 15:13:54
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-08 13:13:39
 -->
 <template>
   <div class="navbar">
@@ -76,6 +76,9 @@ const logOut = () => {
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
+  box-shadow: 0 0px 5px #eee;
+  position: relative;
+  z-index: 1;
   .left {
     display: flex;
     align-items: center;
@@ -87,6 +90,11 @@ const logOut = () => {
     }
   }
   .right {
+    display: flex;
+    align-items: center;
+    >div {
+      margin-left: 15px;
+    }
     .avatar-wrap {
       .avatar-img {
         width: 40px;

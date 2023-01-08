@@ -1,24 +1,18 @@
 <!--
  * @Date: 2022-04-11 11:54:16
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-06 11:50:08
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-08 22:07:22
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\AppMain.vue
 -->
 <template>
   <section class="app-main">
-    <RouterView v-slot="{ Component, route }">
-      <template v-if="Component">
-        <Transition name="fade" mode="out-in" appear>
-          <KeepAlive :include="cachedViews">
-            <Suspense>
-              <component :is="Component" :key="route.path"></component>
-
-              <template #fallback> 正在加载... </template>
-            </Suspense>
-          </KeepAlive>
-        </Transition>
-      </template>
-    </RouterView>
+    <router-view v-slot="{ Component, route }">
+      <transition name="fade-transform">
+        <KeepAlive :include="cachedViews">
+          <component :is="Component" :key="route.path" />
+        </KeepAlive>
+      </transition>
+    </router-view>
   </section>
 </template>
 
@@ -41,37 +35,17 @@ const cachedViews = computed(() => tagsViewStore.cachedViews);
   overflow: hidden;
 }
 
-.fixed-header + .app-main {
-  padding-top: 50px;
+.fade-transform-enter-active {
+  transition: all 0.3s ease-out;
 }
 
-.hasTagsView {
-  .app-main {
-    /* 84 = navbar + tags-view = 50 + 34 */
-    min-height: calc(100vh - 84px);
-  }
-
-  .fixed-header + .app-main {
-    padding-top: 84px;
-  }
+.fade-transform-leave-active {
+  transition: all .0s cubic-bezier(0, 0.5, 0.8, 1);
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
+.fade-transform-enter-from,
+.fade-transform-leave-to {
+  transform: translateX(20px);
   opacity: 0;
-}
-</style>
-
-<style lang="scss">
-// fix css style bug in open el-dialog
-.el-popup-parent--hidden {
-  .fixed-header {
-    padding-right: 17px;
-  }
 }
 </style>
