@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 17:20:13
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-05 11:45:39
+ * @LastEditTime: 2023-01-09 17:04:15
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\Sidebar\SidebarItem.vue
 -->
 <template>
@@ -30,12 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import {
-  Document,
-  Menu as IconMenu,
-  Location,
-  Setting,
-} from "@element-plus/icons-vue";
 import Item from "./Item.vue";
 import { RouteRecordRaw } from "vue-router";
 const props = defineProps<{

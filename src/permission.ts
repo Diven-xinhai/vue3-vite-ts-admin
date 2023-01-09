@@ -2,8 +2,8 @@
  * @Description: 权限处理
  * @Author: yeke
  * @Date: 2022-12-31 19:40:21
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-08 19:14:56
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-09 10:23:35
  */
 import router from "./router/index";
 import { ElMessage } from "element-plus";
@@ -29,7 +29,6 @@ router.beforeEach(async (to, from) => {
           .getUserInfo()
           .then((res) => {
             permissionStore.generateRoutes().then(() => {
-              console.log(to);
               router.push(to.fullPath);
               // return { ...to, replace: true };
               // return to.fullPath

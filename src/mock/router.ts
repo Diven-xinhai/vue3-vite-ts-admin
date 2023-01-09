@@ -2,8 +2,8 @@
  * @Description: 动态路由mock数据
  * @Author: yeke
  * @Date: 2023-01-01 20:26:22
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-08 18:48:35
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-09 17:28:53
  */
 import { responseType } from "./types";
 export default [
@@ -11,10 +11,11 @@ export default [
     type: "get",
     url: "/api/getRouters",
     response: (data: any): responseType => {
+      const { username } = data.body;
       return {
         code: 200,
         msg: "获取成功",
-        data: adminRouter,
+        data: username === "admin" ? adminRouter : commonRouter,
       };
     },
   },
@@ -31,7 +32,7 @@ const adminRouter = [
       title: "系统管理",
       icon: "system",
       noCache: false,
-      link: null,
+      link: false,
     },
     children: [
       {
@@ -43,58 +44,82 @@ const adminRouter = [
           title: "用户管理",
           icon: "user",
           noCache: false,
-          link: null,
-        },
-      },
-      {
-        name: "Color",
-        path: "color",
-        component: "system/color/index",
-        hidden: false,
-        meta: {
-          title: "设置主题色",
-          icon: "color",
-          noCache: false,
-          link: null,
+          link: false,
         },
       },
     ],
   },
   {
-    name: "Drag",
-    path: "/drag",
+    name: "Ability",
+    path: "/ability",
     component: "Layout",
-    redirect: "/drag/test1",
+    redirect: "/ability/test1",
     hidden: false,
     meta: {
-      title: "拖拽",
-      icon: "drag",
+      title: "其他功能",
+      icon: "ability",
       noCache: false,
-      link: null,
+      link: false,
     },
     children: [
       {
+        name: "Color",
+        path: "color",
+        component: "ability/color/index",
+        hidden: false,
+        meta: {
+          title: "设置主题色",
+          icon: "color",
+          noCache: false,
+          link: false,
+        },
+      },
+      {
+        name: "Echarts",
+        path: "echarts",
+        component: "ability/echarts/index",
+        hidden: false,
+        meta: {
+          title: "图表展示",
+          icon: "echarts",
+          noCache: false,
+          link: false,
+        },
+      },
+      {
         name: "Test1",
         path: "test1",
-        component: "drag/test1/index",
+        component: "ability/test1/index",
         hidden: false,
         meta: {
           title: "test1",
           icon: "drag",
           noCache: false,
-          link: null,
+          link: false,
         },
       },
       {
         name: "Test2",
         path: "test2",
-        component: "drag/test2/index",
+        component: "ability/test2/index",
         hidden: false,
         meta: {
           title: "test2",
           icon: "drag",
           noCache: false,
-          link: null,
+          link: false,
+        },
+      },
+      {
+        name: "跳转百度",
+        path: "https://www.baidu.com/",
+        component: "",
+        hidden: false,
+        meta: {
+          title: "百度",
+          icon: "drag",
+          noCache: false,
+          link: true,
         },
       },
     ],
@@ -112,7 +137,7 @@ const commonRouter = [
       title: "拖拽",
       icon: "drag",
       noCache: false,
-      link: null,
+      link: false,
     },
     children: [
       {
@@ -124,7 +149,7 @@ const commonRouter = [
           title: "普通用户权限1",
           icon: "drag",
           noCache: false,
-          link: null,
+          link: false,
         },
       },
     ],

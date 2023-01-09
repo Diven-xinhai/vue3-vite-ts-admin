@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-11 10:00:44
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-08 21:46:31
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-09 17:13:09
  * @FilePath: \vue3-vite-ts-admin\src\router\index.ts
  */
 import {
@@ -25,8 +25,7 @@ import Layout from "@/layout/index.vue";
     noCache: true                   // 如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
     title: 'title'                  // 设置该路由在侧边栏和面包屑中展示的名字
     icon: 'svg-name'                // 设置该路由的图标，对应路径src/assets/icons/svg
-    breadcrumb: false               // 如果设置为false，则不会在breadcrumb面包屑中显示
-    activeMenu: '/system/user'      // 当路由设置了该属性，则会高亮相对应的侧边栏。
+    link: false                     // 如果设置为true，则会跳转外部链接，path是外部链接地址
   }
  */
 
@@ -62,7 +61,6 @@ export const constantRoutes: Array<RouteRecordRaw> = [
           title: "首页",
           icon: "index",
           noCache: false,
-          link: null,
         },
       },
     ],
@@ -76,43 +74,37 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   },
 ];
 
-// export const dynamicRoutes: Array<RouteRecordRaw> = [
-//   {
-//     name: "Index",
-//     path: "/",
-//     component: Layout,
-//     redirect: "/index",
-//     children: [
-//       {
-//         name: "Index",
-//         path: "index",
-//         component: () => import("@/views/index.vue"),
-//         meta: { title: "首页", icon: "dashboard", affix: true },
-//       },
-//       {
-//         name: "Drag",
-//         path: "drag",
-//         component: () => import("@/views/drag/index.vue"),
-//         meta: { title: "拖拽", icon: "dashboard", affix: true },
-//         redirect: "/drag/test1",
-//         children: [
-//           {
-//             name: "Test1",
-//             path: "test1",
-//             component: () => import("@/views/drag/test1/index.vue"),
-//             meta: { title: "test1", icon: "dashboard", affix: true },
-//           },
-//           {
-//             name: "Test2",
-//             path: "test2",
-//             component: () => import("@/views/drag/test2/index.vue"),
-//             meta: { title: "test2", icon: "dashboard", affix: true },
-//           },
-//         ],
-//       },
-//     ],
-//   },
-// ];
+// 页面权限路由，需要动态匹配，在菜单管理里面增加按钮权限，按钮权限跳转的页面对应页面（因为只有按钮点击了才能跳转除菜单外的子页面）
+export const dynamicRoutes: Array<RouteRecordRaw> = [
+  {
+    path: "/system/user-auth",
+    permissions: ["system:user:edit"],
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        name: "Edit",
+        path: ":userId(\\d+)",
+        component: () => import("@/views/system/user/edit.vue"),
+        meta: { title: "页面权限", icon: "index", noCache: false, link: null },
+      },
+    ],
+  },
+  {
+    path: "/system/user-test",
+    permissions: ["system:user:test"],
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        name: "Test",
+        path: ":userId(\\d+)",
+        component: () => import("@/views/system/user/test.vue"),
+        meta: { title: "测试页面权限", icon: "index", noCache: false, link: null },
+      },
+    ],
+  },
+];
 
 // 1.返回一个 router 实列，为函数，里面有配置项（对象） history
 const router = createRouter({

@@ -2,8 +2,8 @@
  * @Description: 用户信息状态
  * @Author: yeke
  * @Date: 2022-12-31 16:13:58
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-08 22:53:20
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-09 10:30:48
  */
 import { defineStore } from "pinia";
 import { useTagsViewStore } from "./tagsView";
@@ -28,7 +28,8 @@ export const useUserStore = defineStore("user", {
     },
     getUserInfo() {
       return new Promise((resolve, reject) => {
-        userInfo()
+        // 为了模拟不同用户登录，这里传了参数，实际业务可以去掉
+        userInfo({ username: this.userInfo?.userName })
           .then((res: any) => {
             this.userInfo = res.data.user;
             // 判断是否有角色
@@ -52,6 +53,7 @@ export const useUserStore = defineStore("user", {
         tagsViewStore.$reset();
         permissionStore.$reset();
         this.$reset();
+        sessionStorage.clear();
         resolve();
       });
     },

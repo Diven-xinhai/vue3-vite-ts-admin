@@ -1,8 +1,8 @@
 <!--
  * @Description: 用户管理
  * @Date: 2023-01-05 15:30:57
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-08 22:33:50
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-09 15:57:40
  * @FilePath: \vue3-vite-ts-admin\src\views\system\user\index.vue
 -->
 <template>
@@ -87,7 +87,10 @@
 import { onMounted, onActivated, ref, reactive } from "vue";
 import type { FormInstance } from "element-plus";
 import { getUserList } from "@/api/user";
+import { useRouter } from "vue-router";
+const router = useRouter();
 interface UserList {
+  id: string;
   phone: string;
   name: string;
   status: string;
@@ -146,6 +149,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 
 const handleEdit = (index: number, row: UserList) => {
   console.log(index, row);
+  router.push({ path: `/system/user-auth/${row.id}` });
 };
 const handleDelete = (index: number, row: UserList) => {
   console.log(index, row);

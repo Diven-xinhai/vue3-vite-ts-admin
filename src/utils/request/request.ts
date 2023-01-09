@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-14 09:30:39
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-01 21:07:17
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-09 09:13:15
  * @FilePath: \vue3-vite-ts-admin\src\utils\request\request.ts
  */
 import axios from "axios";
@@ -17,7 +17,6 @@ const server = axios.create({
 });
 
 server.interceptors.request.use((config) => {
-  console.log(config);
   // 是否需要设置 token
   config.headers!["token"] = localStorage.getItem("token") as string; // 让每个请求携带自定义token 请根据实际情况自行修改
   return config;
