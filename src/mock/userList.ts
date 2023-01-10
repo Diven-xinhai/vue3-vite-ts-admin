@@ -3,13 +3,14 @@
  * @Author: yeke
  * @Date: 2023-01-08 15:11:19
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-09 15:58:11
+ * @LastEditTime: 2023-01-10 17:25:57
  */
 import { responseType } from "./types";
 export default [
   {
     type: "get",
     url: "/api/userList",
+    timeout: 1000,
     response: (data: any): responseType => {
       return {
         code: 200,

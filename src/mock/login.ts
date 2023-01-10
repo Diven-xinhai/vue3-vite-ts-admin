@@ -2,14 +2,15 @@
  * @Description: 登录mock数据
  * @Author: yeke
  * @Date: 2023-01-01 20:26:22
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-04 23:08:24
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-10 15:43:12
  */
 import { responseType } from "./types";
 export default [
   {
     type: "post",
     url: "/api/login",
+    timeout: 1500,
     response: (data: any): responseType => {
       console.log(data.body);
       const { username, password } = data.body;

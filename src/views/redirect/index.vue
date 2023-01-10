@@ -1,12 +1,12 @@
 <!--
  * @Date: 2022-04-11 10:41:13
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-06 15:58:20
+ * @LastEditTime: 2023-01-10 16:59:20
  * @FilePath: \vue3-vite-ts-admin\src\views\redirect\index.vue
 -->
 <template>
   <div>
-    <h2>404</h2>
+    <h1 class="title">404</h1>
   </div>
 </template>
 
@@ -18,3 +18,9 @@ const { params, query } = route;
 const { path } = params;
 router.replace({ path: "/" + path, query });
 </script>
+<style lang="scss" scoped>
+.title {
+  text-align: center;
+  margin: 50px auto;
+}
+</style>

@@ -1,10 +1,11 @@
 /*
- * @Description: 
+ * @Description:
  * @Date: 2023-01-09 17:30:36
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-09 17:56:33
+ * @LastEditTime: 2023-01-10 10:30:53
  * @FilePath: \vue3-vite-ts-admin\src\plugins\echarts.ts
  */
+import type { App } from "vue";
 import * as echarts from "echarts/core";
 import {
   BarChart,
@@ -54,6 +55,14 @@ echarts.use([
   CanvasRenderer,
 ]);
 
-const option: ECOption = {
-  // ...
-};
+
+export default echarts;
+
+// export function useEcharts(app: App) {
+//     app.config.globalProperties.$echarts = echarts;
+//     console.log(app.config);
+// }
+
+// const option: ECOption = {
+//   // ...
+// };

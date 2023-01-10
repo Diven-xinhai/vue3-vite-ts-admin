@@ -3,13 +3,14 @@
  * @Author: yeke
  * @Date: 2023-01-01 20:26:22
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-09 17:28:53
+ * @LastEditTime: 2023-01-10 18:56:29
  */
 import { responseType } from "./types";
 export default [
   {
     type: "get",
     url: "/api/getRouters",
+    // timeout: 1500,
     response: (data: any): responseType => {
       const { username } = data.body;
       return {

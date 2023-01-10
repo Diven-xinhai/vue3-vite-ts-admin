@@ -3,7 +3,7 @@
  * @Author: yeke
  * @Date: 2022-12-31 16:13:58
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-09 17:11:46
+ * @LastEditTime: 2023-01-10 16:55:41
  */
 import { defineStore } from "pinia";
 import router, { constantRoutes, dynamicRoutes } from "@/router/index";
@@ -62,7 +62,7 @@ export const usePermissionStore = defineStore("permission", {
           [...resRouters, ...asyncRouters].forEach((route) => {
             router.addRoute(route);
           });
-          resolve(resRouters);
+          resolve(true);
         });
       });
     },

@@ -2,7 +2,7 @@
  * @Description: 用户管理
  * @Date: 2023-01-05 15:30:57
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-09 15:57:40
+ * @LastEditTime: 2023-01-10 15:51:39
  * @FilePath: \vue3-vite-ts-admin\src\views\system\user\index.vue
 -->
 <template>
@@ -57,7 +57,11 @@
       </el-button>
     </div>
     <div class="table-style">
-      <el-table :data="tableData.data">
+      <el-table
+        :data="tableData.data"
+        v-loading="loading"
+        element-loading-text="Loading..."
+      >
         <el-table-column prop="name" align="center" label="姓名" />
         <el-table-column prop="phone" align="center" label="手机号" />
         <el-table-column prop="statusLabel" align="center" label="状态" />
@@ -104,6 +108,7 @@ onMounted(() => {
 onActivated(() => {
   console.log("onActivated：页面被缓存了！");
 });
+const loading = ref(true);
 const queryFormRef = ref<FormInstance>();
 const queryForm = reactive({
   userName: "",
@@ -135,6 +140,7 @@ const getUserListData = async () => {
     )[0].label;
     return item;
   });
+  loading.value = false;
 };
 
 const queryList = () => {
