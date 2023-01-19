@@ -1,8 +1,8 @@
 <!--
  * @Description: 用户管理
  * @Date: 2023-01-05 15:30:57
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-10 15:51:39
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-19 13:52:24
  * @FilePath: \vue3-vite-ts-admin\src\views\system\user\index.vue
 -->
 <template>
@@ -168,7 +168,7 @@ const handleDelete = (index: number, row: UserList) => {
   padding: 15px 0;
   .query-box {
     width: 100%;
-    padding: 15px;
+    // padding: 15px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -183,13 +183,14 @@ const handleDelete = (index: number, row: UserList) => {
     }
   }
   .operation-btn {
-    padding: 0 15px;
+    margin-top: 15px;
     display: flex;
     align-items: center;
   }
   .table-style {
     width: 100%;
-    padding: 15px;
+    margin-top: 15px;
+    // padding: 15px;
   }
 }
 </style>

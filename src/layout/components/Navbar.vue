@@ -3,7 +3,7 @@
  * @Author: yeke
  * @Date: 2022-12-31 14:44:46
  * @LastEditors: yeke
- * @LastEditTime: 2023-01-08 13:13:39
+ * @LastEditTime: 2023-01-19 11:36:03
 -->
 <template>
   <div class="navbar">
@@ -17,6 +17,9 @@
       <breadcrumb></breadcrumb>
     </div>
     <div class="right">
+      
+      <full-screen></full-screen>
+
       <div class="avatar-wrap">
         <el-dropdown @command="handleCommand">
           <div class="avatar-img">
@@ -39,6 +42,7 @@ import { useRouter } from "vue-router";
 import { useAppStore } from "@/store/app";
 import { useUserStore } from "@/store/user";
 import Breadcrumb from "@/components/Creadcrumb/index.vue";
+import FullScreen from "@/components/FullScreen/index.vue";
 import { ElMessage } from "element-plus";
 const sidebarIcon = ref("packUp");
 const router = useRouter();
@@ -92,7 +96,7 @@ const logOut = () => {
   .right {
     display: flex;
     align-items: center;
-    >div {
+    > div {
       margin-left: 15px;
     }
     .avatar-wrap {
