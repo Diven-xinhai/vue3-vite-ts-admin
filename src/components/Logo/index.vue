@@ -1,26 +1,46 @@
+<!--
+ * @Description: 
+ * @Author: yeke
+ * @Date: 2023-01-05 20:10:38
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-01-29 12:30:45
+-->
 <template>
   <div class="logo">
-    <img class="img-small" v-if="isCollapse" :src="imgSmall" alt="" />
-    <img class="img" v-else :src="img" alt="" />
+    <svg-icon v-if="isCollapse" name="vite"></svg-icon>
+    <div v-else class="img-box">
+      <svg-icon className="icon" name="vite"></svg-icon>
+      <span class="title">野克Admin</span>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import img from "@/assets/images/logo1.png";
-import imgSmall from "@/assets/logo.png";
 const props = defineProps<{
   isCollapse: boolean;
 }>();
 </script>
 <style lang="scss" scoped>
+@import "@/assets/styles/variables.module.scss";
 .logo {
   width: 100%;
   padding: 20px;
-  .img {
+  .img-box {
     height: 36px;
-  }
-  .img-small {
-    width: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .icon {
+      width: 30px !important;
+      height: 30px !important;
+      margin-right: 10px;
+    }
+    .title {
+      color: $theme-color;
+      font-weight: bold;
+      white-space: nowrap;
+    }
   }
 }
 </style>

@@ -3,7 +3,7 @@
  * @Author: yeke
  * @Date: 2023-01-01 20:26:22
  * @LastEditors: yeke
- * @LastEditTime: 2023-01-19 12:26:06
+ * @LastEditTime: 2023-01-23 17:37:20
  */
 import { responseType } from "./types";
 export default [
@@ -22,7 +22,7 @@ export default [
   },
 ];
 
-const adminRouter = [
+export const adminRouter = [
   {
     name: "System",
     path: "/system",
@@ -139,7 +139,7 @@ const adminRouter = [
   },
 ];
 
-const commonRouter = [
+export const commonRouter = [
   {
     name: "Drag",
     path: "/drag",

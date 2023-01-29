@@ -2,7 +2,7 @@
  * @Description: 角色管理
  * @Date: 2023-01-05 15:30:57
  * @LastEditors: yeke
- * @LastEditTime: 2023-01-19 14:53:50
+ * @LastEditTime: 2023-01-23 17:28:08
  * @FilePath: \vue3-vite-ts-admin\src\views\system\user\index.vue
 -->
 <template>
@@ -100,10 +100,10 @@
         status-icon
       >
         <el-form-item label="角色名称" prop="roleName">
-          <el-input v-model="form.roleName" />
+          <el-input v-model="form.roleName" placeholder="请输入角色名称" />
         </el-form-item>
         <el-form-item label="字符权限" prop="roleKey">
-          <el-input v-model="form.roleKey" />
+          <el-input v-model="form.roleKey" placeholder="请输入字符权限" />
         </el-form-item>
         <el-form-item label="角色顺序" prop="roleSort">
           <el-input-number
@@ -123,19 +123,19 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="菜单权限">
-          <!-- <el-checkbox
+          <el-checkbox
             v-model="menuExpand"
-            @change="handleCheckedTreeExpand($event, 'menu')"
+            @change="handleCheckedTreeExpand($event)"
             >展开/折叠</el-checkbox
           >
           <el-checkbox
             v-model="menuNodeAll"
-            @change="handleCheckedTreeNodeAll($event, 'menu')"
+            @change="handleCheckedTreeNodeAll($event)"
             >全选/全不选</el-checkbox
           >
           <el-checkbox
             v-model="form.menuCheckStrictly"
-            @change="handleCheckedTreeConnect($event, 'menu')"
+            @change="handleCheckedTreeConnect($event)"
             >父子联动</el-checkbox
           >
           <el-tree
@@ -147,7 +147,16 @@
             :check-strictly="!form.menuCheckStrictly"
             empty-text="加载中，请稍候"
             :props="{ label: 'label', children: 'children' }"
-          ></el-tree> -->
+          ></el-tree>
+        </el-form-item>
+        <el-form-item label="备注">
+          <el-input
+            v-model="form.remark"
+            maxlength="30"
+            placeholder="请输入内容"
+            show-word-limit
+            type="textarea"
+          />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -162,8 +171,10 @@
 
 <script setup lang="ts" name="User">
 import { onMounted, onActivated, ref, reactive, toRefs } from "vue";
-import type { FormInstance, FormRules } from "element-plus";
+import type { FormInstance, FormRules, ElTree } from "element-plus";
+import type Node from "element-plus/es/components/tree/src/model/node";
 import { getRoleList } from "@/api/role";
+import { menuThree } from "@/api/menuThree";
 import { useRouter } from "vue-router";
 const router = useRouter();
 interface UserList {
@@ -183,9 +194,15 @@ interface Data {
   form: any;
   rules: FormRules;
 }
+interface MenuOptionsItem {
+  id: number;
+  label: string;
+  children?: MenuOptionsItem[];
+}
 onMounted(() => {
   console.log("onMounted：执行");
   getRoleListData();
+  getMenuThree();
 });
 
 onActivated(() => {
@@ -195,10 +212,10 @@ const loading = ref(true);
 const open = ref(false);
 const dialogTitle = ref("添加角色");
 const queryFormRef = ref<FormInstance>();
-const menuOptions = ref([]);
+const menuOptions = ref<MenuOptionsItem[]>([]);
 const menuExpand = ref(false);
 const menuNodeAll = ref(false);
-const menuRef = ref(null);
+const menuRef = ref<InstanceType<typeof ElTree>>();
 const statusOptions = reactive([
   {
     value: "0",
@@ -224,7 +241,9 @@ const data = reactive<Data>({
     roleName: "",
     roleKey: "",
     status: "0",
-    roleSort: "",
+    roleSort: 0,
+    menuCheckStrictly: true,
+    remark: "",
   },
   rules: {
     roleName: [
@@ -261,25 +280,46 @@ const getRoleListData = async () => {
   loading.value = false;
 };
 
+/**
+ * @description: 获取菜单树
+ */
+const getMenuThree = async () => {
+  const res = await menuThree({});
+  menuOptions.value = res.data as [];
+};
+
 const queryList = () => {
   getRoleListData();
 };
 
-// const handleCheckedTreeExpand = (value:EventTarget, type:string) => {
-//   if (type == "menu") {
-//     let treeList = menuOptions.value;
-//     for (let i = 0; i < treeList.length; i++) {
-//       if(menuRef.value){
-//         menuRef.value.store.nodesMap[treeList[i].id].expanded = value;
-//       }
-//     }
-//   } else if (type == "dept") {
-//     let treeList = deptOptions.value;
-//     for (let i = 0; i < treeList.length; i++) {
-//       deptRef.value.store.nodesMap[treeList[i].id].expanded = value;
-//     }
-//   }
-// };
+/**
+ * @description: 数权限（展开/折叠）
+ */
+const handleCheckedTreeExpand = (value: any) => {
+  let treeList = menuOptions.value;
+  for (let i = 0; i < treeList.length; i++) {
+    if (menuRef.value) {
+      menuRef.value.store.nodesMap[treeList[i].id].expanded = value;
+    }
+  }
+};
+
+/**
+ * @description: 树权限（全选/全不选）
+ */
+function handleCheckedTreeNodeAll(value: any) {
+  menuRef.value!.setCheckedNodes(
+    value ? (menuOptions.value as Node[]) : [],
+    false
+  );
+}
+
+/**
+ * @description: 树权限（父子联动）
+ */
+function handleCheckedTreeConnect(value: any) {
+  form.value.menuCheckStrictly = value ? true : false;
+}
 
 const resetForm = (formEl: FormInstance | undefined) => {
   // 注意：el-from-item 需要加上prop属性
@@ -289,6 +329,9 @@ const resetForm = (formEl: FormInstance | undefined) => {
 
 const handleEdit = (index: number, row: UserList) => {
   console.log(index, row);
+  dialogTitle.value = "修改角色";
+  open.value = true;
+  form.value = Object.assign(form.value,row)
 };
 const handleDelete = (index: number, row: UserList) => {
   console.log(index, row);
@@ -324,6 +367,13 @@ const handleDelete = (index: number, row: UserList) => {
     width: 100%;
     margin-top: 15px;
     // padding: 15px;
+  }
+  .tree-border {
+    margin-top: 5px;
+    border: 1px solid #e5e6e7;
+    background: #ffffff none;
+    border-radius: 4px;
+    width: 100%;
   }
 }
 </style>

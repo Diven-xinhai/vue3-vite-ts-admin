@@ -3,7 +3,7 @@
  * @Author: yeke
  * @Date: 2023-01-19 12:26:35
  * @LastEditors: yeke
- * @LastEditTime: 2023-01-19 12:28:49
+ * @LastEditTime: 2023-01-23 17:29:46
  */
 import { responseType } from "./types";
 export default [
@@ -21,12 +21,14 @@ export default [
             roleKey: "admin",
             roleName: "超级管理员",
             status: "0",
+            roleSort: 0,
           },
           {
             id: "1",
             roleKey: "common",
             roleName: "普通角色",
             status: "0",
+            roleSort: 1,
           },
         ],
       };

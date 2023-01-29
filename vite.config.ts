@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-08 16:39:36
  * @LastEditors: yeke
- * @LastEditTime: 2023-01-08 11:59:10
+ * @LastEditTime: 2023-01-29 22:04:32
  * @FilePath: \vue3-vite-ts-admin\vite.config.ts
  */
 import { UserConfigExport, ConfigEnv } from "vite";
@@ -18,6 +18,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 // https://vitejs.dev/config/
 export default ({ command }: ConfigEnv): UserConfigExport => {
   return {
+    base: './',
     plugins: [
       vue(),
       // 引入 svg
