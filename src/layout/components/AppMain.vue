@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 11:54:16
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-19 13:51:58
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-30 18:00:24
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\AppMain.vue
 -->
 <template>
@@ -30,7 +30,7 @@ const cachedViews = computed(() => tagsViewStore.cachedViews);
   /* 50= navbar  50  */
   // min-height: calc(100vh - 50px);
   width: 100%;
-  height: 100%;
+  height: calc(100% - 40px - 50px);
   padding: 15px;
   position: relative;
   overflow: hidden;

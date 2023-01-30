@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-14 09:30:39
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-09 09:13:15
+ * @LastEditTime: 2023-01-30 09:41:59
  * @FilePath: \vue3-vite-ts-admin\src\utils\request\request.ts
  */
 import axios from "axios";

@@ -1,15 +1,15 @@
 /*
  * @Date: 2022-04-08 16:39:36
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-29 22:04:32
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-30 16:42:15
  * @FilePath: \vue3-vite-ts-admin\vite.config.ts
  */
 import { UserConfigExport, ConfigEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
+import vueJsx from "@vitejs/plugin-vue-jsx";
 import { join, resolve } from "path";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import VueSetupExtend from "vite-plugin-vue-setup-extend";
-import { viteMockServe } from "vite-plugin-mock";
 // element 自动导入
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -18,9 +18,10 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 // https://vitejs.dev/config/
 export default ({ command }: ConfigEnv): UserConfigExport => {
   return {
-    base: './',
+    base: "/",
     plugins: [
       vue(),
+      vueJsx(),
       // 引入 svg
       createSvgIconsPlugin({
         iconDirs: [resolve(process.cwd(), "src/assets/icons/svg")],
@@ -29,12 +30,6 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
         customDomId: "__svg__icons__dom__", //默认__svg__icons__dom__
       }),
       VueSetupExtend(),
-      viteMockServe({
-        supportTs: true,
-        logger: false,
-        localEnabled: command === "serve",
-        mockPath: "./src/mock/",
-      }),
       AutoImport({
         resolvers: [
           ElementPlusResolver({

@@ -3,7 +3,7 @@
  * @Author: yeke
  * @Date: 2022-12-31 19:40:21
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-10 17:24:02
+ * @LastEditTime: 2023-01-30 17:30:14
  */
 import router from "./router/index";
 import { ElMessage } from "element-plus";
@@ -29,10 +29,10 @@ router.beforeEach((to, from, next) => {
           .getUserInfo()
           .then((res) => {
             permissionStore.generateRoutes().then(() => {
+              // next({ ...to, replace: true })
               router.push(to.fullPath);
               // return { ...to, replace: true };
               // }
-              // router.push(to.fullPath);
               // return true
               // return { ...to, replace: true };
               // return to.fullPath

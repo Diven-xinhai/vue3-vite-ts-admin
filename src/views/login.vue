@@ -3,7 +3,7 @@
  * @Author: yeke
  * @Date: 2022-12-31 14:38:16
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-10 15:47:56
+ * @LastEditTime: 2023-01-30 15:49:28
 -->
 <template>
   <div class="flex flex-main-center flex-cross-center login-wrap">
@@ -101,18 +101,23 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
         userName: loginForm.username,
         password: loginForm.password,
       };
-      login(userInfo).then((res: any) => {
-        if (res.code == 200) {
-          ElMessage({
-            message: res.msg,
-            type: "success",
-          });
-          store.setToken("123123");
-          // 为了模拟不同用户登录，暂时传了登录用户名，实际根据业务调整
-          store.setUserInfo(userInfo);
-          router.push("/");
-        }
-      });
+      login(userInfo)
+        .then((res: any) => {
+          if (res.code == 200) {
+            ElMessage({
+              message: res.msg,
+              type: "success",
+            });
+            store.setToken("123123");
+            // 为了模拟不同用户登录，暂时传了登录用户名，实际根据业务调整
+            store.setUserInfo(userInfo);
+            router.push("/");
+          }
+        })
+        .catch((err) => {
+          loading.value = false;
+          loginBtnTitle.value = "登录";
+        });
     }
   });
 };

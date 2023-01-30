@@ -1,9 +1,9 @@
 <!--
  * @Description: 角色管理
  * @Date: 2023-01-05 15:30:57
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-23 17:28:08
- * @FilePath: \vue3-vite-ts-admin\src\views\system\user\index.vue
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-01-30 16:08:33
+ * @FilePath: \vue3-vite-ts-admin\src\views\system\role\index.vue
 -->
 <template>
   <div class="user-wrap">
@@ -161,7 +161,7 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button type="primary" @click="open = false">确 定</el-button>
+          <el-button type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="open = false">取 消</el-button>
         </span>
       </template>
@@ -171,6 +171,7 @@
 
 <script setup lang="ts" name="User">
 import { onMounted, onActivated, ref, reactive, toRefs } from "vue";
+import { ElMessage, ElMessageBox } from "element-plus";
 import type { FormInstance, FormRules, ElTree } from "element-plus";
 import type Node from "element-plus/es/components/tree/src/model/node";
 import { getRoleList } from "@/api/role";
@@ -293,6 +294,17 @@ const queryList = () => {
 };
 
 /**
+ * @description: 确认 添加/修改
+ */
+const submitForm = () => {
+  open.value = false;
+  ElMessage({
+    message: "测试数据无法修改！",
+    type: "warning",
+  });
+};
+
+/**
  * @description: 数权限（展开/折叠）
  */
 const handleCheckedTreeExpand = (value: any) => {
@@ -331,10 +343,23 @@ const handleEdit = (index: number, row: UserList) => {
   console.log(index, row);
   dialogTitle.value = "修改角色";
   open.value = true;
-  form.value = Object.assign(form.value,row)
+  form.value = Object.assign(form.value, row);
 };
+
 const handleDelete = (index: number, row: UserList) => {
   console.log(index, row);
+  ElMessageBox.confirm(`确认删除${row.roleName}?`, "提示", {
+    confirmButtonText: "确认",
+    cancelButtonText: "取消",
+    type: "warning",
+  })
+    .then(() => {
+      ElMessage({
+        type: "warning",
+        message: "测试数据无法删除！",
+      });
+    })
+    .catch(() => {});
 };
 </script>
 

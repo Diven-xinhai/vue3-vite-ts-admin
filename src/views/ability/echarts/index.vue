@@ -2,7 +2,7 @@
  * @Description: echarts演示
  * @Date: 2023-01-09 17:22:24
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-10 18:58:30
+ * @LastEditTime: 2023-01-30 17:20:30
  * @FilePath: \vue3-vite-ts-admin\src\views\ability\echarts\index.vue
 -->
 <template>
