@@ -5,11 +5,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, provide } from "vue";
 import data from "./data.json";
 import Editor from "./packages/editor";
+import { editorConfig } from "@/views/ability/lowCode/utils/keys";
+import { registerConfig as config } from "./utils/editor-config";
 
 const state = ref(data);
+
+provide(editorConfig, config);
 </script>
 
 <style lang="scss" scoped>

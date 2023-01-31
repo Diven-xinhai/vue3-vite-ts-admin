@@ -11,6 +11,38 @@
   }
   &-left {
     left: 0;
+    &-item {
+      width: 250px;
+      min-height: 100px;
+      margin: 20px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      padding: 20px;
+      cursor: move;
+      user-select: none;
+      position: relative;
+      > span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgb(96, 205, 224);
+        color: #fff;
+        padding: 5px;
+        font-size: 12px;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: #ccc;
+        opacity: 0.2;
+      }
+    }
   }
   &-right {
     right: 0;
@@ -31,7 +63,12 @@
       &_content {
         margin: 20px auto;
         background-color: yellow;
+        position: relative;
       }
     }
   }
+}
+
+.editor-block {
+  position: absolute;
 }

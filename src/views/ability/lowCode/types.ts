@@ -14,6 +14,7 @@ export interface Blocks {
   left: number;
   zIndex: number;
   key: string;
+  alignCenter?: boolean;
 }
 export interface JsonSchema {
   container: Container;
