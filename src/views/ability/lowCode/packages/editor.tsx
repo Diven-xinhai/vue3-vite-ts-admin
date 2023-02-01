@@ -2,15 +2,17 @@
  * @Description: 编辑器
  * @Date: 2023-01-30 16:24:56
  * @LastEditors: YeKe
- * @LastEditTime: 2023-01-31 18:20:40
+ * @LastEditTime: 2023-02-01 17:06:26
  * @FilePath: \vue3-vite-ts-admin\src\views\ability\lowCode\packages\editor.tsx
  */
 import { ref, computed, defineComponent, inject } from "vue";
 import "./editor.scss";
-import { JsonSchema } from "../types";
+import { JsonSchema, Blocks } from "../types";
 import EditorBlock from "./editor-block";
 import { editorConfig } from "../utils/keys";
-import { menuDragger } from "../utils/menu-dragger";
+import { useMenuDragger } from "../hooks/useMenuDragger";
+import { useFocus } from "../hooks/useFocus";
+import { useBlockDragger } from "../hooks/useBlockDragger";
 export default defineComponent({
   props: {
     modelValue: {
@@ -38,11 +40,19 @@ export default defineComponent({
     const contarnerRef = ref<HTMLInputElement | null>(null);
 
     // 1. 实现菜单的拖拽功能
-    const { dragstart, dragend } = menuDragger(contarnerRef, data);
+    const { dragstart, dragend } = useMenuDragger(contarnerRef, data);
 
-    // 2. 实现编辑区 获取焦点
+    // 2. 实现编辑区 获取焦点,选中后有可能就直接拖拽了
+    const { blockMousedown, containerMousedown, focusData } = useFocus(
+      data,
+      (e: MouseEvent) => {
+        console.log(focusData.value);
+        mousedown(e);
+      }
+    );
 
     // 3. 实现编辑区 拖拽多个元素的功能
+    const { mousedown } = useBlockDragger(focusData);
 
     return () => (
       <div class="editor">
@@ -74,9 +84,14 @@ export default defineComponent({
               class="editor-container-canvas_content"
               style={containerStyles.value}
               ref={contarnerRef}
+              onMousedown={containerMousedown}
             >
               {data.value.blocks.map((block) => (
-                <EditorBlock block={block}></EditorBlock>
+                <EditorBlock
+                  class={block.focus ? "editor-block-focus" : ""}
+                  block={block}
+                  onMousedown={(e: MouseEvent) => blockMousedown(e, block)}
+                ></EditorBlock>
               ))}
             </div>
           </div>

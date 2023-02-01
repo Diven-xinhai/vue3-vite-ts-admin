@@ -1,8 +1,8 @@
 import { JsonSchema } from "../types";
-import { Component } from "./editor-config";
+import { Component } from "../utils/editor-config";
 import { Ref } from "vue";
 
-export const menuDragger = (
+export const useMenuDragger = (
   contarnerRef: Ref<HTMLInputElement | null>,
   data: Ref<JsonSchema>
 ) => {

@@ -15,6 +15,7 @@ export interface Blocks {
   zIndex: number;
   key: string;
   alignCenter?: boolean;
+  focus?: boolean;
 }
 export interface JsonSchema {
   container: Container;
