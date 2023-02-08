@@ -1,4 +1,4 @@
-import { Ref, computed } from "vue";
+import { Ref, ref, computed } from "vue";
 import { Blocks, JsonSchema } from "../types";
 
 export interface FocuseData {
@@ -7,6 +7,13 @@ export interface FocuseData {
 }
 
 export const useFocus = (data: Ref<JsonSchema>, callback: Function) => {
+  const selectIndex = ref(-1); // 当前点击小组件的下标
+
+  /**
+   * @description: 最后选择的小组件
+   */  
+  const lastSelectBlock = computed(() => data.value.blocks[selectIndex.value]);
+
   /**
    * @description: 清空选中状态
    */
@@ -17,7 +24,7 @@ export const useFocus = (data: Ref<JsonSchema>, callback: Function) => {
   /**
    * @description: 组件元素被按下
    */
-  const blockMousedown = (e: MouseEvent, block: Blocks) => {
+  const blockMousedown = (e: MouseEvent, block: Blocks, index: number) => {
     e.preventDefault();
     e.stopPropagation();
     // block上我们定义一个属性 focus 获取焦点后就将 focus 变为 true
@@ -33,6 +40,7 @@ export const useFocus = (data: Ref<JsonSchema>, callback: Function) => {
         block.focus = true;
       }
     }
+    selectIndex.value = index;
     callback(e);
   };
 
@@ -41,6 +49,7 @@ export const useFocus = (data: Ref<JsonSchema>, callback: Function) => {
    */
   const containerMousedown = () => {
     clearBlockFocus();
+    selectIndex.value = -1;
   };
 
   /**
@@ -59,5 +68,6 @@ export const useFocus = (data: Ref<JsonSchema>, callback: Function) => {
     blockMousedown,
     containerMousedown,
     focusData,
+    lastSelectBlock
   };
 };

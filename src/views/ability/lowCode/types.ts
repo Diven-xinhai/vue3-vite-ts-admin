@@ -10,6 +10,8 @@ export interface Container {
   height: number;
 }
 export interface Blocks {
+  width: number,
+  height: number,
   top: number;
   left: number;
   zIndex: number;
