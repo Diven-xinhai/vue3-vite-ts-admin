@@ -2,13 +2,14 @@
  * @Description:
  * @Date: 2023-02-01 16:53:48
  * @LastEditors: YeKe
- * @LastEditTime: 2023-02-08 17:40:07
+ * @LastEditTime: 2023-02-09 16:59:33
  * @FilePath: \vue3-vite-ts-admin\src\views\ability\lowCode\hooks\useBlockDragger.tsx
  */
 import { Ref, reactive } from "vue";
 import { JsonSchema } from "../types";
 import { FocuseData } from "../hooks/useFocus";
 import { Blocks } from "../types";
+import { events } from "../utils/event";
 
 export interface LinesY {
   showTop: number;
@@ -41,6 +42,7 @@ export const useBlockDragger = (
     lines: {} as Lines,
     startLeft: 0,
     startTop: 0,
+    dragging: false, // 默认没有正在拖拽
   };
 
   // 辅助线位置
@@ -68,6 +70,7 @@ export const useBlockDragger = (
     // 记录拖拽前的位置
     dragState.startLeft = lastSelectBlock.value.left;
     dragState.startTop = lastSelectBlock.value.top;
+    dragState.dragging = false;
 
     dragState.lines = (() => {
       const { unfocus } = focusData.value; // 获取其他未选中的小组件，以他们的位置做辅助线
@@ -92,29 +95,31 @@ export const useBlockDragger = (
         // showTop: 辅助线的位置
         // top: 拖拽小组件元素的位置
         // 未选中元素 相对 选中的最后一个元素 的位置
-        lines.y.push({ showTop: ATop, top: ATop }); // 顶对顶
-        lines.y.push({ showTop: ATop, top: ATop - BHeight }); // 顶对底
-        lines.y.push({
-          showTop: ATop + AHeight / 2,
-          top: ATop + AHeight / 2 - BHeight / 2,
-        }); // 中对中
-        lines.y.push({ showTop: ATop + AHeight, top: ATop + AHeight }); // 底对顶
-        lines.y.push({
-          showTop: ATop + AHeight,
-          top: ATop + AHeight - BHeight,
-        }); // 底对底
+        if (AWidth && AHeight && BWidth && BHeight) {
+          lines.y.push({ showTop: ATop, top: ATop }); // 顶对顶
+          lines.y.push({ showTop: ATop, top: ATop - BHeight }); // 顶对底
+          lines.y.push({
+            showTop: ATop + AHeight / 2,
+            top: ATop + AHeight / 2 - BHeight / 2,
+          }); // 中对中
+          lines.y.push({ showTop: ATop + AHeight, top: ATop + AHeight }); // 底对顶
+          lines.y.push({
+            showTop: ATop + AHeight,
+            top: ATop + AHeight - BHeight,
+          }); // 底对底
 
-        lines.x.push({ showLeft: ALeft, left: ALeft }); // 左对左
-        lines.x.push({ showLeft: ALeft + AWidth, left: ALeft + AWidth }); // 右对左
-        lines.x.push({
-          showLeft: ALeft + AWidth / 2,
-          left: ALeft + AWidth / 2 - BWidth / 2,
-        }); // 中对中
-        lines.x.push({
-          showLeft: ALeft + AWidth,
-          left: ALeft + AWidth - BWidth,
-        }); // 右对右
-        lines.x.push({ showLeft: ALeft, left: ALeft - BWidth }); // 左对右
+          lines.x.push({ showLeft: ALeft, left: ALeft }); // 左对左
+          lines.x.push({ showLeft: ALeft + AWidth, left: ALeft + AWidth }); // 右对左
+          lines.x.push({
+            showLeft: ALeft + AWidth / 2,
+            left: ALeft + AWidth / 2 - BWidth / 2,
+          }); // 中对中
+          lines.x.push({
+            showLeft: ALeft + AWidth,
+            left: ALeft + AWidth - BWidth,
+          }); // 右对右
+          lines.x.push({ showLeft: ALeft, left: ALeft - BWidth }); // 左对右
+        }
       });
       console.log(lines);
 
@@ -129,6 +134,10 @@ export const useBlockDragger = (
    */
   const mousemove = (e: MouseEvent) => {
     let { clientX: moveX, clientY: moveY } = e;
+    if (!dragState.dragging) {
+      dragState.dragging = true;
+      events.emit("start");
+    }
 
     // 计算当前元素最新的left和top，去线里面找，找到显示的线
     // 鼠标移动后- 鼠标移动前 + left
@@ -170,8 +179,11 @@ export const useBlockDragger = (
   const mouseup = (e: MouseEvent) => {
     document.removeEventListener("mousemove", mousemove);
     document.removeEventListener("mouseup", mouseup);
-    markLine.x = null
-    markLine.y = null
+    markLine.x = null;
+    markLine.y = null;
+    if (dragState.dragging) {
+      events.emit("end");
+    }
   };
 
   return {

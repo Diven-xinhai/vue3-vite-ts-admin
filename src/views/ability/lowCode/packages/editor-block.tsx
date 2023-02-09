@@ -18,7 +18,6 @@ export default defineComponent({
   },
   setup(props) {
     const config = inject(editorConfig);
-    console.log(config);
     const blockStyles = computed(() => ({
       top: `${props.block.top}px`,
       left: `${props.block.left}px`,

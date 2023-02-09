@@ -2,7 +2,7 @@
  * @Description: 编辑器
  * @Date: 2023-01-30 16:24:56
  * @LastEditors: YeKe
- * @LastEditTime: 2023-02-08 17:55:07
+ * @LastEditTime: 2023-02-09 17:04:20
  * @FilePath: \vue3-vite-ts-admin\src\views\ability\lowCode\packages\editor.tsx
  */
 import { ref, computed, defineComponent, inject } from "vue";
@@ -13,27 +13,32 @@ import { editorConfig } from "../utils/keys";
 import { useMenuDragger } from "../hooks/useMenuDragger";
 import { useFocus } from "../hooks/useFocus";
 import { useBlockDragger } from "../hooks/useBlockDragger";
+import { useCommand } from "../hooks/useCommand";
 export default defineComponent({
   props: {
     modelValue: {
       type: Object,
     },
   },
-  //   emits: ["update:modelValue"],
+  emits: ["update:modelValue"],
   setup(props, ctx) {
     console.log(props.modelValue);
 
     let data = computed<JsonSchema>({
       get: () => props.modelValue as JsonSchema,
       set: (val) => {
-        // ctx.emit("update:modelValue");
+        console.log("---aaa---");
+        ctx.emit("update:modelValue", JSON.parse(JSON.stringify(val)));
       },
     });
+    // let data = computed<JsonSchema>(() => props.modelValue as JsonSchema);
 
-    const containerStyles = computed(() => ({
-      width: data.value.container.width + "px",
-      height: data.value.container.height + "px",
-    }));
+    const containerStyles = computed(() => {
+      return {
+        width: data.value.container.width + "px",
+        height: data.value.container.height + "px",
+      };
+    });
 
     const config = inject(editorConfig);
 
@@ -56,9 +61,11 @@ export default defineComponent({
       data
     );
 
+    const { commands } = useCommand(data);
+
     const buttons = [
-      { label: "撤销", icon: "revocation", handler: () => console.log("撤销") },
-      { label: "重做", icon: "renewal", handler: () => console.log("重做") },
+      { label: "上一步", icon: "revocation", handler: () => commands.undo() },
+      { label: "下一步", icon: "renewal", handler: () => commands.redo() },
     ];
 
     return () => (
@@ -82,7 +89,7 @@ export default defineComponent({
         <div class="editor-top">
           {buttons.map((btn) => {
             return (
-              <div class='editor-top-button' onClick={btn.handler}>
+              <div class="editor-top-button" onClick={btn.handler}>
                 <svg-icon className="icon" name={btn.icon}></svg-icon>
                 <span>{btn.label}</span>
               </div>
