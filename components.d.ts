@@ -40,7 +40,6 @@ declare module '@vue/runtime-core' {
     ElTree: typeof import('element-plus/es')['ElTree']
     FullScreen: typeof import('./src/components/FullScreen/index.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    Loading: typeof import('element-plus/es')['ElLoadingDirective']
     Logo: typeof import('./src/components/Logo/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

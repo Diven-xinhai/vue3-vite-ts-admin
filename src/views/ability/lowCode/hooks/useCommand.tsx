@@ -2,10 +2,9 @@
  * @Description:
  * @Date: 2023-02-09 08:52:20
  * @LastEditors: YeKe
- * @LastEditTime: 2023-02-09 17:37:12
+ * @LastEditTime: 2023-02-10 09:15:29
  * @FilePath: \vue3-vite-ts-admin\src\views\ability\lowCode\hooks\useCommand.tsx
  */
-import { keysOf } from "element-plus/es/utils";
 import { Ref, reactive, onUnmounted } from "vue";
 import { JsonSchema } from "../types";
 import { events } from "../utils/event";
