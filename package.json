@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@types/js-cookie": "^3.0.1",
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^0.26.1",
     "crypto-js": "^4.1.1",
     "echarts": "^5.4.1",

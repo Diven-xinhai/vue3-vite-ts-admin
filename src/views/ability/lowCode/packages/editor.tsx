@@ -2,7 +2,7 @@
  * @Description: 编辑器
  * @Date: 2023-01-30 16:24:56
  * @LastEditors: YeKe
- * @LastEditTime: 2023-02-09 17:04:20
+ * @LastEditTime: 2023-02-13 16:21:13
  * @FilePath: \vue3-vite-ts-admin\src\views\ability\lowCode\packages\editor.tsx
  */
 import { ref, computed, defineComponent, inject } from "vue";
@@ -66,6 +66,8 @@ export default defineComponent({
     const buttons = [
       { label: "上一步", icon: "revocation", handler: () => commands.undo() },
       { label: "下一步", icon: "renewal", handler: () => commands.redo() },
+      { label: "导出", icon: "renewal", handler: () => commands.redo() },
+      { label: "导入", icon: "renewal", handler: () => commands.redo() },
     ];
 
     return () => (
