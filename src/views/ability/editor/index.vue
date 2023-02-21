@@ -15,7 +15,9 @@
         @onCreated="handleCreated"
       />
     </div>
-    <el-button type="primary" @click="getContent">获取内容</el-button>
+    <el-button class="btn" type="primary" @click="getContent"
+      >获取内容</el-button
+    >
     <div class="content-box" v-html="showContent"></div>
   </div>
 </template>
@@ -24,6 +26,8 @@
 import { onBeforeUnmount, ref, shallowRef, onMounted } from "vue";
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 import "@wangeditor/editor/dist/css/style.css"; // 引入 css
+import { IToolbarConfig, IEditorConfig } from "@wangeditor/editor";
+const env = import.meta.env;
 const mode = ref("default"); // 或 'simple'
 
 // 编辑器实例，必须用 shallowRef
@@ -41,13 +45,54 @@ onMounted(() => {
   }, 1500);
 });
 
-const toolbarConfig = {};
-const editorConfig = {
+// 工具栏
+const toolbarConfig: Partial<IToolbarConfig> = {
+  // excludeKeys: ["insertVideo", "uploadVideo"],
+  toolbarKeys: [
+    // 菜单 key
+    "headerSelect",
+    // 分割线
+    "|",
+    // 菜单 key
+    "bold",
+    "color",
+    "bgColor",
+    "fontSize",
+    "fontFamily",
+    "todo",
+    "redo",
+    "undo",
+    // "fullScreen",
+    // "enter",
+    "bulletedList",
+    "numberedList",
+    "insertTable",
+    "deleteTable",
+    "tableHeader",
+    // "codeSelectLang",
+    "italic",
+    // 菜单组，包含多个菜单
+    {
+      key: "group-more-style", // 必填，要以 group 开头
+      title: "更多样式", // 必填
+      iconSvg: "<svg>....</svg>", // 可选
+      menuKeys: ["through", "code", "clearStyle"], // 下级菜单 key ，必填
+    },
+    "insertImage",
+    "uploadImage",
+    // "deleteImage",
+    // "editImage",
+  ],
+};
+
+// 编译器配置
+const editorConfig: Partial<IEditorConfig> = {
   placeholder: "请输入内容...",
+  // 菜单配置
   MENU_CONF: {
     uploadImage: {
       //上传图片配置
-      // server: baseUrl + "/microsoft/api/v1/plane/messageTemplate/uploadImage", //上传接口地址
+      server: env.VITE_API_URL + "/api/upload", //上传接口地址
       fieldName: "file", //上传文件名
       methods: "post",
       // timeout: 5 * 1000, // 5s
@@ -89,8 +134,9 @@ const editorConfig = {
 };
 
 const getContent = () => {
-  console.log(valueHtml.value);
-  showContent.value = valueHtml.value;
+  const editor = editorRef.value; // 获取 editor ，必须等待它渲染完之后
+  if (editor == null) return;
+  showContent.value = editor.getHtml();
 };
 
 // 组件销毁时，也及时销毁编辑器
@@ -102,18 +148,38 @@ onBeforeUnmount(() => {
 
 const handleCreated = (editor: any) => {
   editorRef.value = editor; // 记录 editor 实例，重要！
+  console.log(editor.getAllMenuKeys());
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .editor-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+  height: 100%;
+  overflow: auto;
+  .btn {
+    margin: 20px auto;
+    display: block;
+  }
   .content-box {
     width: 100%;
-    min-height: 100px;
+    padding: 20px;
     border: 1px solid #ccc;
+    ul {
+      li {
+        list-style: disc;
+      }
+    }
+    ol {
+      li {
+        list-style: auto;
+      }
+    }
+    a,
+    a:focus,
+    a:hover {
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline;
+    }
   }
 }
 </style>

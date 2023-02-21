@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 09:54:14
- * @LastEditors: yeke
- * @LastEditTime: 2023-01-08 22:32:46
+ * @LastEditors: YeKe
+ * @LastEditTime: 2023-02-20 09:29:03
  * @FilePath: \vue3-vite-ts-admin\src\layout\index.vue
 -->
 <template>
@@ -24,8 +24,8 @@ import TagsView from "./components/TagsView/index.vue";
 import { useAppStore } from "@/store/app";
 const isCollapse = computed(() => useAppStore().sidebar);
 
-const envTitle = import.meta.env;
-console.log(envTitle);
+const env = import.meta.env;
+console.log("env123", env);
 </script>
 
 <style lang="scss" scoped>
@@ -38,7 +38,7 @@ console.log(envTitle);
     width: 100%;
     width: calc(100% - 200px);
     margin-left: 200px;
-    transition: width,margin-left 0.28s;
+    transition: width, margin-left 0.28s;
   }
   .width-style {
     width: calc(100% - 64px);
