@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-11 11:54:16
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-30 18:00:24
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-03-06 17:11:24
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\AppMain.vue
 -->
 <template>
@@ -33,7 +33,7 @@ const cachedViews = computed(() => tagsViewStore.cachedViews);
   height: calc(100% - 40px - 50px);
   padding: 15px;
   position: relative;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .fade-transform-enter-active {

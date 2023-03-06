@@ -2,7 +2,7 @@
  * @Description: 标签
  * @Date: 2023-01-05 15:30:57
  * @LastEditors: yeke
- * @LastEditTime: 2023-01-06 21:33:16
+ * @LastEditTime: 2023-03-06 17:21:46
  * @FilePath: \vue3-vite-ts-admin\src\layout\components\TagsView\index.vue
 -->
 <template>
@@ -54,8 +54,12 @@ const addView = () => {
 
 const closeTags = (data: AddRoute) => {
   tagsViewStore.delView(data);
+  console.log(route);
+
   const lastRoute = visitedViews.value[visitedViews.value.length - 1];
-  router.push(lastRoute.path);
+  if (route.name !== "Index") {
+    router.push(lastRoute.path);
+  }
 };
 
 const toPath = (data: AddRoute) => {

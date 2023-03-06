@@ -153,8 +153,6 @@ const handleCreated = (editor: any) => {
 </script>
 <style lang="scss">
 .editor-box {
-  height: 100%;
-  overflow: auto;
   .btn {
     margin: 20px auto;
     display: block;
