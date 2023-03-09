@@ -1,8 +1,8 @@
 <!--
  * @Description: 角色管理
  * @Date: 2023-01-05 15:30:57
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-30 16:08:33
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-03-09 20:38:49
  * @FilePath: \vue3-vite-ts-admin\src\views\system\role\index.vue
 -->
 <template>
@@ -75,14 +75,14 @@
             <el-button
               size="small"
               @click="handleEdit(scope.$index, scope.row)"
-              v-hasPermissions="['system:user:edit']"
+              v-hasRole="['admin']"
               >修改</el-button
             >
             <el-button
               size="small"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
-              v-hasPermissions="['system:user:remove']"
+              v-hasRole="['admin']"
               >删除</el-button
             >
           </template>

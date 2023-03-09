@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-04-14 09:30:39
- * @LastEditors: YeKe
- * @LastEditTime: 2023-01-30 09:41:59
+ * @LastEditors: yeke
+ * @LastEditTime: 2023-03-09 20:23:27
  * @FilePath: \vue3-vite-ts-admin\src\utils\request\request.ts
  */
 import axios from "axios";
@@ -26,8 +26,10 @@ server.interceptors.response.use(
   (response) => {
     if (response.status !== 200 || response.data.code != 200) {
       ElMessage.error(response.data.msg ? response.data.msg : "接口调用失败");
+      throw new Error("接口调用失败");
+    } else {
+      return response.data;
     }
-    return response.data;
   },
   (error) => {
     ElMessage.error("网络错误");

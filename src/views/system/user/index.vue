@@ -2,7 +2,7 @@
  * @Description: 用户管理
  * @Date: 2023-01-05 15:30:57
  * @LastEditors: yeke
- * @LastEditTime: 2023-01-19 13:52:24
+ * @LastEditTime: 2023-03-09 20:09:52
  * @FilePath: \vue3-vite-ts-admin\src\views\system\user\index.vue
 -->
 <template>
@@ -11,9 +11,9 @@
       <el-form ref="queryFormRef" :model="queryForm" label-width="80px">
         <el-row :gutter="15" justify="start">
           <el-col :lg="6" :md="6" :sm="12">
-            <el-form-item label="用户名称" prop="userName">
+            <el-form-item label="用户名称" prop="name">
               <el-input
-                v-model="queryForm.userName"
+                v-model="queryForm.name"
                 placeholder="请输入用户名称"
               />
             </el-form-item>
@@ -52,7 +52,11 @@
       </el-form>
     </div>
     <div class="operation-btn">
-      <el-button type="primary" v-hasPermissions="['system:user:add']">
+      <el-button
+        type="primary"
+        @click="add"
+        v-hasPermissions="['system:user:add']"
+      >
         添加
       </el-button>
     </div>
@@ -84,12 +88,47 @@
         </el-table-column>
       </el-table>
     </div>
+    <el-dialog v-model="open" :title="dialogTitle" width="600px">
+      <el-form
+        ref="formRef"
+        :model="editForm"
+        :rules="rules"
+        label-width="80px"
+        class="demo-ruleForm"
+        size="default"
+        status-icon
+      >
+        <el-form-item label="用户名称" prop="name">
+          <el-input v-model="editForm.name" placeholder="请输入用户名称" />
+        </el-form-item>
+        <el-form-item label="手机号" prop="phone">
+          <el-input v-model="editForm.phone" placeholder="请输入手机号" />
+        </el-form-item>
+        <el-form-item label="状态">
+          <el-radio-group v-model="editForm.status">
+            <el-radio
+              v-for="dict in statusOptions"
+              :key="dict.value"
+              :label="dict.value"
+              >{{ dict.label }}</el-radio
+            >
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button type="primary" @click="submitForm">确 定</el-button>
+          <el-button @click="open = false">取 消</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts" name="User">
-import { onMounted, onActivated, ref, reactive } from "vue";
+import { onMounted, onActivated, ref, reactive, toRefs } from "vue";
 import type { FormInstance } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { getUserList } from "@/api/user";
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -109,12 +148,9 @@ onActivated(() => {
   console.log("onActivated：页面被缓存了！");
 });
 const loading = ref(true);
+const open = ref(false);
+const dialogTitle = ref("添加用户");
 const queryFormRef = ref<FormInstance>();
-const queryForm = reactive({
-  userName: "",
-  phone: "",
-  status: "0",
-});
 
 const statusOptions = reactive([
   {
@@ -130,6 +166,27 @@ const statusOptions = reactive([
 let tableData = reactive({
   data: [] as UserList[],
 });
+
+const data = reactive({
+  queryForm: {
+    name: "",
+    phone: "",
+    status: "0",
+  },
+  editForm: {
+    name: "",
+    phone: "",
+    status: "0",
+  },
+  rules: {
+    name: [
+      { required: true, message: "用户名称不能为空", trigger: "blur" },
+    ],
+    phone: [{ required: true, message: "手机号不能为空", trigger: "blur" }],
+  },
+});
+
+const { queryForm, editForm, rules } = toRefs(data);
 
 const getUserListData = async () => {
   const res = await getUserList();
@@ -153,12 +210,46 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
+/**
+ * @description: 添加角色
+ */
+const add = () => {
+  dialogTitle.value = "添加用户";
+  open.value = true;
+};
+
+/**
+ * @description: 确认 添加/修改
+ */
+const submitForm = () => {
+  open.value = false;
+  ElMessage({
+    message: "测试数据无法修改！",
+    type: "warning",
+  });
+};
+
 const handleEdit = (index: number, row: UserList) => {
   console.log(index, row);
-  router.push({ path: `/system/user-auth/${row.id}` });
+  // router.push({ path: `/system/user-auth/${row.id}` });
+  dialogTitle.value = "修改用户";
+  open.value = true;
+  editForm.value = Object.assign(editForm.value, row);
 };
 const handleDelete = (index: number, row: UserList) => {
   console.log(index, row);
+  ElMessageBox.confirm(`确认删除${row.name}?`, "提示", {
+    confirmButtonText: "确认",
+    cancelButtonText: "取消",
+    type: "warning",
+  })
+    .then(() => {
+      ElMessage({
+        type: "warning",
+        message: "测试数据无法删除！",
+      });
+    })
+    .catch(() => {});
 };
 </script>
 

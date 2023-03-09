@@ -3,7 +3,7 @@
  * @Author: yeke
  * @Date: 2022-12-31 14:44:46
  * @LastEditors: yeke
- * @LastEditTime: 2023-01-19 11:36:03
+ * @LastEditTime: 2023-03-09 21:07:24
 -->
 <template>
   <div class="navbar">
@@ -17,7 +17,6 @@
       <breadcrumb></breadcrumb>
     </div>
     <div class="right">
-      
       <full-screen></full-screen>
 
       <div class="avatar-wrap">
@@ -27,6 +26,7 @@
           </div>
           <template #dropdown>
             <el-dropdown-menu>
+              <el-dropdown-item command="setLayout">布局设置</el-dropdown-item>
               <el-dropdown-item command="logOut">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -44,6 +44,7 @@ import { useUserStore } from "@/store/user";
 import Breadcrumb from "@/components/Creadcrumb/index.vue";
 import FullScreen from "@/components/FullScreen/index.vue";
 import { ElMessage } from "element-plus";
+const emit = defineEmits(["setLayout"]);
 const sidebarIcon = ref("packUp");
 const router = useRouter();
 const appStore = useAppStore();
@@ -54,12 +55,19 @@ const toggleSidebar = () => {
 
 const handleCommand = (command: string | number | object) => {
   switch (command) {
+    case "setLayout":
+      setLayout();
+      break;
     case "logOut":
       logOut();
       break;
     default:
       break;
   }
+};
+
+const setLayout = () => {
+  emit("setLayout");
 };
 
 const logOut = () => {
